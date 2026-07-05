@@ -2211,3 +2211,121 @@ html {
     border-left: 4px solid currentColor;
     margin-left: 8px;
 }
+
+/* ================================================================
+   MOBILE RESPONSIVE — FULL SITE
+   ================================================================ */
+
+@media (max-width: 991.98px) {
+    /* Page sections — reduce vertical padding */
+    div.container-fluid.py-5 { padding-top: 60px !important; padding-bottom: 60px !important; }
+    div.container.py-5 { padding-top: 40px !important; padding-bottom: 40px !important; }
+
+    /* Breadcrumb */
+    .bg-breadcrumb { padding: 120px 0 40px 0 !important; }
+    .bg-breadcrumb .container.text-center h3 { font-size: 1.6rem; }
+    .breadcrumb { font-size: 0.85rem; flex-wrap: wrap; }
+
+    /* Section titles — hide decorative lines on mobile to avoid overflow */
+    .section-title .sub-style::before,
+    .section-title .sub-style::after,
+    .sub-title::before,
+    .sub-title::after { display: none !important; }
+    .section-title h1 { font-size: 1.6rem; }
+    .section-title p { font-size: 0.9rem; }
+
+    /* About section */
+    .about .about-img .about-experience {
+        position: relative; top: auto; left: auto; transform: none;
+        text-align: center; padding: 10px 0; font-size: 16px; letter-spacing: 2px;
+    }
+    .about .about-img { height: auto; margin-bottom: 20px; }
+
+    /* Achievements */
+    .achievements { background-attachment: scroll !important; min-height: auto; padding: 60px 0; }
+    .achievements .achievement-number .counter { font-size: 2.5rem; }
+    .achievements .achievement-number .plus { font-size: 2rem; }
+    .achievements .achievement-icon i { width: 60px; height: 60px; line-height: 60px; font-size: 1.5rem; }
+
+    /* Service cards */
+    .service .service-item { margin-bottom: 20px; }
+
+    /* Feature items */
+    .feature .feature-item { padding: 20px !important; }
+
+    /* Team */
+    .team .team-item { margin-bottom: 20px; }
+
+    /* Marquee partners */
+    .marquee-wrapper { margin-bottom: 20px; }
+
+    /* Testimonial carousel arrows */
+    .testimonial .testimonial-carousel .owl-nav { display: none; }
+
+    /* Contact */
+    .contact .contact-form { padding: 0; }
+
+    /* Footer — columns stack at 50% */
+    .footer .row.g-5 > div { margin-bottom: 20px; }
+    .footer .footer-item h4 { font-size: 1.1rem; }
+    .footer .footer-item a { font-size: 0.9rem; line-height: 30px; }
+
+    /* Owl carousel hero dots on inner pages (if any) */
+    .header-carousel .owl-nav { display: none; }
+}
+
+@media (max-width: 575.98px) {
+    /* General spacing */
+    div.container-fluid.py-5 { padding-top: 40px !important; padding-bottom: 40px !important; }
+    div.container.py-5 { padding-top: 24px !important; padding-bottom: 24px !important; }
+    .container, .container-fluid { padding-left: 16px !important; padding-right: 16px !important; }
+
+    /* Breadcrumb */
+    .bg-breadcrumb { padding: 100px 0 30px 0 !important; }
+    .bg-breadcrumb .container.text-center h3 { font-size: 1.3rem; }
+    .breadcrumb { font-size: 0.8rem; }
+
+    /* Section titles */
+    .section-title h1 { font-size: 1.3rem; }
+    .section-title p { font-size: 0.85rem; }
+    .sub-style { font-size: 0.75rem; letter-spacing: 1px; }
+
+    /* Page headings */
+    h1, .h1 { font-size: 1.5rem; }
+    h2, .h2 { font-size: 1.3rem; }
+    h3, .h3 { font-size: 1.15rem; }
+    h4, .h4 { font-size: 1rem; }
+    h5, .h5 { font-size: 0.9rem; }
+
+    /* Grid columns — stack to single column */
+    .row.g-5 { --bs-gutter-x: 0; --bs-gutter-y: 20px; }
+    .row > [class*="col-"] { margin-bottom: 16px; }
+
+    /* About */
+    .about .about-img img { width: 100%; }
+
+    /* Achievements grid */
+    .achievements .row > [class*="col-"] { margin-bottom: 16px; }
+
+    /* Service */
+    .service .service-item .service-content { padding: 16px; }
+    .service .service-item .service-content h4 { font-size: 1rem; }
+    .service .service-item .service-content p { font-size: 0.85rem; }
+
+    /* Team grid */
+    .team .row > [class*="col-"] { margin-bottom: 20px; }
+
+    /* Contact */
+    .contact .contact-form .form-floating { margin-bottom: 12px; }
+    .contact .btn { width: 100%; }
+
+    /* Footer */
+    .footer .row.g-5 > div { margin-bottom: 24px; }
+    .footer .footer-item p { font-size: 0.85rem; line-height: 26px; }
+
+    /* Buttons */
+    .btn { font-size: 0.85rem; padding: 10px 20px; }
+
+    /* Back to top */
+    .back-to-top { width: 40px; height: 40px; font-size: 0.9rem; bottom: 20px; right: 20px; }
+}

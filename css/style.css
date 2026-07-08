@@ -277,6 +277,16 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Move hamburger + logo left on desktop */
+@media (min-width: 992px) {
+    .sh-navbar {
+        padding-left: 4px !important;
+    }
+    .navbar-brand {
+        margin-left: -8px;
+    }
+}
+
 .sh-navbar .navbar-nav .nav-link {
     font-family: 'Open Sans', sans-serif;
     position: relative;
@@ -292,6 +302,173 @@ body {
 .sh-navbar .navbar-nav .nav-link:hover,
 .sh-navbar .navbar-nav .nav-link.active {
     color: var(--bs-primary) !important;
+}
+
+/* ================================================================
+   HAMBURGER MENU - 3 LINES NEXT TO LOGO
+   ================================================================ */
+
+/* ================================================================
+   OFFCANVAS SIDEBAR
+   ================================================================ */
+.sh-offcanvas {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    width: 320px !important;
+    border-right: 1px solid rgba(255,255,255,0.15);
+}
+.sh-offcanvas .offcanvas-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(10,42,74,0.08);
+}
+.sh-offcanvas .btn-close {
+    filter: brightness(0) saturate(100%) invert(36%) sepia(95%) saturate(748%) hue-rotate(350deg) brightness(92%) contrast(91%);
+    opacity: 0.7;
+}
+.sh-offcanvas .btn-close:hover { opacity: 1; }
+.sh-offcanvas-nav { display: flex; flex-direction: column; padding: 12px 0; }
+.sh-offcanvas-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px; color: #0A2A4A; font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; transition: all 0.2s ease; border-left: 3px solid transparent;
+}
+.sh-offcanvas-link:hover, .sh-offcanvas-link.active {
+    background: rgba(208,117,23,0.08); color: #D07517; border-left-color: #D07517;
+}
+.sh-offcanvas-submenu {
+    display: none; background: rgba(10,42,74,0.03); padding: 4px 0;
+}
+.sh-offcanvas-submenu.open { display: block; }
+.sh-offcanvas-sublink {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 24px 10px 40px; color: #0A2A4A; font-weight: 500; font-size: 0.88rem;
+    text-decoration: none; transition: all 0.2s ease;
+}
+.sh-offcanvas-sublink:hover { color: #D07517; }
+.sh-offcanvas-subsub {
+    display: none; padding: 2px 0;
+}
+.sh-offcanvas-subsub.open { display: block; }
+.sh-offcanvas-subsub .sh-offcanvas-sublink {
+    padding-left: 56px; font-size: 0.83rem; font-weight: 400;
+}
+.sh-offcanvas .offcanvas-footer {
+    margin-top: auto; padding: 16px 24px;
+}
+
+/* Container for hamburger icon */
+.hamburger-menu {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 20px !important;
+    cursor: pointer;
+    position: relative;
+    gap: 5px;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 100%;
+    height: 3px !important;
+    background-color: #0A2A4A !important;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    flex: none;
+}
+
+/* Hover state  */
+.navbar-toggler:hover .hamburger-menu span {
+    background-color: #D07517 !important;
+}
+
+/* Hamburger animation when menu is open */
+.navbar-toggler[aria-expanded="true"] .hamburger-menu span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.navbar-toggler[aria-expanded="true"] .hamburger-menu span:nth-child(2) {
+    opacity: 0;
+}
+.navbar-toggler[aria-expanded="true"] .hamburger-menu span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Position toggler on the left side next to logo */
+.navbar.navbar-expand-lg {
+    flex-wrap: nowrap !important;
+}
+
+.navbar-expand-lg .navbar-toggler {
+    order: -1 !important; /* Move to the left */
+    margin-right: 15px !important;
+    border: none !important;
+    padding: 8px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Desktop: hide hamburger, show full menu */
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-toggler {
+        display: none !important;
+    }
+    .btn-close-menu {
+        display: none !important;
+    }
+    .navbar-collapse > .btn-primary {
+        margin-left: 20px;
+    }
+}
+
+/* Desktop: also show hamburger that opens offcanvas menu */
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-toggler.navbar-toggler-offcanvas {
+        display: flex !important;
+        margin-right: 6px !important;
+        margin-top: -8px !important;
+        padding: 4px 10px !important;
+        border-radius: 8px !important;
+        transition: all 0.3s ease !important;
+    }
+    .navbar-expand-lg .navbar-toggler.navbar-toggler-offcanvas:hover {
+        background: rgba(208,117,23,0.08) !important;
+    }
+}
+
+/* Mobile: show hamburger with proper styling */
+@media (max-width: 991.98px) {
+    .navbar-expand-lg .navbar-toggler {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-toggler-offcanvas {
+        display: none !important;
+    }
+
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        padding: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 12px 12px;
+        max-height: calc(100vh - 82px);
+        overflow-y: auto;
+        z-index: 9999;
+    }
 }
 
 /* Scroll state - 70% transparent, same size */
@@ -390,8 +567,8 @@ body {
 
     .navbar.navbar-expand-lg .navbar-toggler {
         padding: 8px 12px;
-        border: 1px solid var(--bs-primary);
-        color: var(--bs-primary);
+        border: none !important;
+        background: transparent !important;
         border-radius: 8px;
     }
 
@@ -399,7 +576,7 @@ body {
         margin-top: 12px;
         padding-top: 12px;
         border-top: 1px solid rgba(10, 42, 74, 0.1);
-        background: rgba(255, 255, 255, 0.98);
+        background: rgba(255, 255, 255, 0.7);
         border-radius: 12px;
         backdrop-filter: blur(12px);
     }
@@ -836,8 +1013,24 @@ body {
     height: 100%;
 }
 
+/* Align Read More button at bottom of card */
+.service-content-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.service-content-inner .btn {
+    margin-top: auto;
+}
+
 .service .service-item .service-content .service-content-inner {
-    transition: 0.5s;
+    transition: .5s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.service .service-item .service-content .service-content-inner .btn {
+    margin-top: auto;
 }
 
 
@@ -1362,7 +1555,7 @@ body {
 
     .testimonial .testimonial-carousel .owl-nav .owl-next {
         margin-top: -190px;
-        margin-right: 40px;
+    margin-right: 40px;
     }
     
 }
@@ -1940,6 +2133,11 @@ body {
     overflow: hidden;
     box-shadow: 0 4px 24px rgba(10, 42, 74, 0.1);
 }
+.service-item .service-img img {
+    height: 220px;
+    object-fit: cover;
+    width: 100%;
+}
 
 .service-item > .shine-overlay {
     content: '';
@@ -2226,6 +2424,7 @@ html {
 .navbar .dropdown-submenu > .dropdown-menu {
     top: 0;
     left: calc(100% + 4px);
+    right: auto;
     margin-top: 0;
     margin-left: 0;
     visibility: hidden !important;
@@ -2239,6 +2438,18 @@ html {
     position: absolute !important;
     z-index: 1050 !important;
     display: block !important;
+}
+/* Second-level+ submenu items — wrap long text */
+.navbar .dropdown-submenu > .dropdown-menu .dropdown-item {
+    white-space: normal !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    padding-right: 20px;
+    line-height: 1.35;
+}
+.navbar .dropdown-submenu > .dropdown-menu {
+    min-width: 260px;
+    max-width: 90vw;
 }
 .navbar .dropdown-submenu:hover > .dropdown-menu,
 .navbar .dropdown-submenu.show-menu > .dropdown-menu {
@@ -2420,7 +2631,8 @@ html {
         justify-content: center;
         padding: 0 !important;
         border-radius: 8px;
-        background: #ffffff;
+        background: transparent !important;
+        border: none !important;
     }
 
     .navbar-light .navbar-collapse {

@@ -23,10 +23,20 @@ body{min-height:100vh;display:flex;flex-direction:column}
 <a href="index.html" class="navbar-brand p-0">
 <img src="img/logo1.png" alt="SAC Arabia">
 </a>
+<button class="navbar-toggler navbar-toggler-offcanvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+    </button>
 <button class="navbar-toggler d-lg-none" type="button">
 <span class="sh-menu-toggle" id="menuToggle"><span></span><span></span><span></span></span>
 </button>
 <div class="collapse navbar-collapse" id="navbarCollapse">
+        <button class="btn-close-menu" type="button" aria-label="Close menu" onclick="document.querySelector('.navbar-toggler').click()">
+            <i class="fas fa-times"></i>
+        </button>
 <div class="navbar-nav ms-auto py-0">
 <a href="index.html" class="nav-item nav-link">Home</a>
 <div class="nav-item dropdown">
@@ -50,6 +60,9 @@ body{min-height:100vh;display:flex;flex-direction:column}
 <li><a class="dropdown-item" href="testingandcommissioning.html">Testing &amp; Commissioning</a></li>
 <li><a class="dropdown-item" href="earthwork.html">Earthworks</a></li>
 <li><a class="dropdown-item" href="tocksystem.html">TOCK System</a></li>
+                                    <li><a class="dropdown-item" href="asphaltpaving.html">Asphalt Paving</a></li>
+                                    <li><a class="dropdown-item" href="rockcrushing.html">Rock Crushing</a></li>
+                                    <li><a class="dropdown-item" href="buildingsrenovation.html">Buildings Renovation</a></li>
 </ul>
 </div>
 <div class="dropdown-item dropdown-submenu position-relative">
@@ -82,7 +95,7 @@ body{min-height:100vh;display:flex;flex-direction:column}
 </div>
 <a href="contact.html" class="nav-item nav-link active">Contact Us</a>
 </div>
-<a href="contact.html" class="btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">Ask for a Quotation</a>
+<a href="request-quotation.html" class="btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">Ask for a Quotation</a>
 </div>
 </nav>
 <div class="sh-menu-overlay" id="menuOverlay">
@@ -152,7 +165,7 @@ body{min-height:100vh;display:flex;flex-direction:column}
 </div>
 
 <div class="sh-menu-cta d-lg-none">
-<a href="contact.html" class="btn btn-primary rounded-pill text-white py-2 px-4 w-100" style="font-size:.9rem;text-align:center">Ask for a Quotation</a>
+<a href="request-quotation.html" class="btn btn-primary rounded-pill text-white py-2 px-4 w-100" style="font-size:.9rem;text-align:center">Ask for a Quotation</a>
 </div>
 
 </div>
@@ -164,7 +177,78 @@ document.getElementById('menuToggle').addEventListener('click',function(){docume
 document.getElementById('menuOverlay').addEventListener('click',function(e){if(e.target===this){this.classList.remove('open');}});
 </script>
 
-<!-- Navbar End -->        <!-- Header Start -->
+<!-- Navbar End -->
+<!-- Offcanvas Sidebar -->
+<div class="offcanvas offcanvas-start sh-offcanvas" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
+    <div class="offcanvas-header">
+        <a href="index.html" class="text-decoration-none"><img src="img/logo1.png" alt="SAC Arabia" style="max-height: 50px;"></a>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <nav class="sh-offcanvas-nav">
+            <a href="index.html" class="sh-offcanvas-link">Home</a>
+            <div class="sh-offcanvas-dropdown">
+                <a href="service.html" class="sh-offcanvas-link" onclick="toggleSubmenu(event)">Services <i class="fas fa-chevron-down ms-2" style="font-size:0.65rem;"></i></a>
+                <div class="sh-offcanvas-submenu">
+                    <div class="sh-offcanvas-subgroup">
+                        <a href="materialsupply.html" class="sh-offcanvas-sublink" onclick="toggleSubSubmenu(event)">Material Supply <i class="fas fa-chevron-down ms-2" style="font-size:0.6rem;"></i></a>
+                        <div class="sh-offcanvas-subsub">
+                            <a href="civil.html" class="sh-offcanvas-sublink">Civil</a>
+                            <a href="electrical.html" class="sh-offcanvas-sublink">Electrical</a>
+                            <a href="mechanical.html" class="sh-offcanvas-sublink">Mechanical</a>
+                        </div>
+                    </div>
+                    <div class="sh-offcanvas-subgroup">
+                        <a href="constructionandengineering.html" class="sh-offcanvas-sublink" onclick="toggleSubSubmenu(event)">Contracting <i class="fas fa-chevron-down ms-2" style="font-size:0.6rem;"></i></a>
+                        <div class="sh-offcanvas-subsub">
+                            <a href="industrialcoating.html" class="sh-offcanvas-sublink">Industrial Coating</a>
+                            <a href="pipingnetwork.html" class="sh-offcanvas-sublink">Piping Network</a>
+                            <a href="steelstructureandbuildings.html" class="sh-offcanvas-sublink">Steel Structure and Buildings</a>
+                            <a href="electromechanical.html" class="sh-offcanvas-sublink">Electromechanical Services</a>
+                            <a href="testingandcommissioning.html" class="sh-offcanvas-sublink">Testing &amp; Commissioning</a>
+                            <a href="earthwork.html" class="sh-offcanvas-sublink">Earthworks</a>
+                            <a href="tocksystem.html" class="sh-offcanvas-sublink">TOCK System</a>
+                            <a href="asphaltpaving.html" class="sh-offcanvas-sublink">Asphalt Paving</a>
+                            <a href="rockcrushing.html" class="sh-offcanvas-sublink">Rock Crushing</a>
+                            <a href="buildingsrenovation.html" class="sh-offcanvas-sublink">Buildings Renovation</a>
+                        </div>
+                    </div>
+                    <div class="sh-offcanvas-subgroup">
+                        <a href="Shutdown and Maintenance.html" class="sh-offcanvas-sublink" onclick="toggleSubSubmenu(event)">Shutdown &amp; Maintenance <i class="fas fa-chevron-down ms-2" style="font-size:0.6rem;"></i></a>
+                        <div class="sh-offcanvas-subsub">
+                            <a href="safetyreliefvalves.html" class="sh-offcanvas-sublink">Safety Relief Valves Setting, Testing and Calibration</a>
+                            <a href="tanksmaintenance.html" class="sh-offcanvas-sublink">Tanks Maintenance and Cleaning</a>
+                            <a href="catalysthandling.html" class="sh-offcanvas-sublink">Catalyst Handling Services</a>
+                            <a href="hydrojetting.html" class="sh-offcanvas-sublink">Hydro Jetting</a>
+                            <a href="mechanicalservices.html" class="sh-offcanvas-sublink">Mechanical Services &amp; Industrial Waste Management</a>
+                            <a href="chemicalcleaning.html" class="sh-offcanvas-sublink">Chemical Cleaning</a>
+                        </div>
+                    </div>
+                    <div class="sh-offcanvas-subgroup">
+                        <a href="rental supply.html" class="sh-offcanvas-sublink" onclick="toggleSubSubmenu(event)">Rental Supply <i class="fas fa-chevron-down ms-2" style="font-size:0.6rem;"></i></a>
+                        <div class="sh-offcanvas-subsub">
+                            <a href="manpower.html" class="sh-offcanvas-sublink">Manpower</a>
+                            <a href="heavyequipment.html" class="sh-offcanvas-sublink">Heavy Equipment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sh-offcanvas-dropdown">
+                <a href="#" class="sh-offcanvas-link" onclick="toggleSubmenu(event)">About <i class="fas fa-chevron-down ms-2" style="font-size:0.65rem;"></i></a>
+                <div class="sh-offcanvas-submenu">
+                    <a href="about.html" class="sh-offcanvas-sublink">About Us</a>
+                    <a href="ourvision.html" class="sh-offcanvas-sublink">OUR VISION</a>
+                    <a href="ourmission.html" class="sh-offcanvas-sublink">OUR MISSION</a>
+                </div>
+            </div>
+            <a href="contact.html" class="sh-offcanvas-link">Contact Us</a>
+        </nav>
+    </div>
+    <div class="offcanvas-footer p-3 border-top" style="border-color:rgba(255,255,255,0.1)!important;">
+        <a href="request-quotation.html" class="btn btn-primary w-100 rounded-pill text-white py-2 px-4" style="background:#D07517;border-color:#D07517;">Ask for a Quotation</a>
+    </div>
+</div><main>
+        <!-- Header Start -->
 <div class="container-fluid bg-breadcrumb">
 <div class="container text-center py-5" style="max-width:900px">
 <h3 class="text-white display-3 mb-4 wow fadeInDown" data-wow-delay="0.1s">Contact Us</h3>
@@ -195,10 +279,10 @@ document.getElementById('menuOverlay').addEventListener('click',function(e){if(e
 <div style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.06);overflow:hidden">
 <div style="background:linear-gradient(135deg,#0A2A4A,#132d4a);padding:24px 32px">
 <div style="display:flex;align-items:center;gap:12px">
-<div style="width:42px;height:42px;border-radius:10px;background:rgba(208,117,23,.2);display:flex;align-items:center;justify-content:center;color:#D07517;font-size:1rem"><i class="fas fa-file-invoice"></i></div>
+<div style="width:42px;height:42px;border-radius:10px;background:rgba(208,117,23,.2);display:flex;align-items:center;justify-content:center;color:#D07517;font-size:1rem"><i class="fas fa-headset"></i></div>
 <div>
-<h4 style="color:#fff;font-weight:700;font-size:1.05rem;margin:0;letter-spacing:-.2px">Request a Quotation</h4>
-<p style="color:rgba(255,255,255,.55);font-size:.78rem;margin:3px 0 0">Send us your project details for a free quote</p>
+<h4 style="color:#fff;font-weight:700;font-size:1.05rem;margin:0;letter-spacing:-.2px">Contact Us</h4>
+<p style="color:rgba(255,255,255,.55);font-size:.78rem;margin:3px 0 0">Have a question? Get in touch with our team</p>
 </div>
 </div>
 </div>
@@ -278,7 +362,8 @@ document.getElementById('menuOverlay').addEventListener('click',function(e){if(e
 <a class="btn rounded-3 d-flex align-items-center justify-content-center" style="width:40px;height:40px;background:#0A2A4A;color:#fff;border-radius:8px!important;font-size:.85rem" href="#"><i class="fab fa-instagram"></i></a>
 <a class="btn rounded-3 d-flex align-items-center justify-content-center" style="width:40px;height:40px;background:#0A2A4A;color:#fff;border-radius:8px!important;font-size:.85rem" href="#"><i class="fab fa-linkedin-in"></i></a>
 </div>
-<!-- Contact End --></div></div>
+<!-- Contact End --></div></div></main>
+
 <!-- Footer Start -->
 <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
 <div class="container py-5">
@@ -353,5 +438,11 @@ Designed By <a class="border-bottom" href="https://cyber.oversight.ee/" style="c
 <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+<script>
+function toggleSubmenu(e){e.preventDefault();var p=e.currentTarget.parentElement;p.querySelector('.sh-offcanvas-submenu').classList.toggle('open');}
+function toggleSubSubmenu(e){e.preventDefault();var p=e.currentTarget.parentElement;p.querySelector('.sh-offcanvas-subsub').classList.toggle('open');}
+</script>
 </body>
 </html>
+
+

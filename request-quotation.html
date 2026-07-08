@@ -1,0 +1,507 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SAC ARABIA - Request a Quotation</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<link href="lib/animate/animate.min.css" rel="stylesheet">
+<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css?v=5" rel="stylesheet">
+<style>
+body{background:url('img/background.jpg') center/cover no-repeat fixed;background-attachment:fixed}
+.rq-hero{background:linear-gradient(rgba(10,42,74,0.75),rgba(10,42,74,0.75)),url('img/carousel-2.jpg') center/cover no-repeat;position:relative;overflow:hidden;padding:120px 0 80px}
+.rq-hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(208,117,23,0.12) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.rq-hero::after{content:'';position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(208,117,23,0.08) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.rq-hero .rq-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(208,117,23,0.15);color:#D07517;padding:6px 18px;border-radius:50px;font-size:.78rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;border:1px solid rgba(208,117,23,0.25)}
+.rq-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;margin-bottom:10px;line-height:1.15}
+.rq-hero h1 span{color:#D07517}
+.rq-hero p{color:rgba(255,255,255,0.65);font-size:1.05rem;max-width:580px;margin:0 auto 0}
+.rq-step-indicator{display:flex;justify-content:center;gap:0;margin-top:35px;background:rgba(255,255,255,0.06);border-radius:50px;padding:6px;max-width:500px;margin-left:auto;margin-right:auto}
+.rq-step{display:flex;align-items:center;gap:8px;padding:8px 20px;border-radius:50px;font-size:.8rem;font-weight:600;color:rgba(255,255,255,0.4);transition:all .3s;cursor:default}
+.rq-step.active{background:#D07517;color:#fff;box-shadow:0 4px 15px rgba(208,117,23,0.3)}
+.rq-step .step-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;background:rgba(255,255,255,0.1)}
+.rq-step.active .step-num{background:rgba(255,255,255,0.2)}
+.rq-section{margin-bottom:28px}
+.rq-card{background:#fff;border-radius:16px;padding:30px;box-shadow:0 2px 20px rgba(10,42,74,0.06);transition:all .3s;border:1px solid rgba(10,42,74,0.04)}
+.rq-card:hover{box-shadow:0 6px 35px rgba(10,42,74,0.1);border-color:rgba(208,117,23,0.08)}
+.rq-card h5{color:#0A2A4A;font-weight:700;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #D07517;display:flex;align-items:center;gap:10px;font-size:1.05rem}
+.rq-card h5 i{color:#D07517;font-size:1.15rem;width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:rgba(208,117,23,0.1);border-radius:8px}
+.rq-card .form-control,.rq-card .form-select{border-radius:10px;border:1.5px solid #e4e7ec;padding:11px 16px;font-size:.92rem;transition:all .3s;background:#fafbfc}
+.rq-card .form-control:focus,.rq-card .form-select:focus{border-color:#D07517;box-shadow:0 0 0 3px rgba(208,117,23,0.1);background:#fff}
+.rq-card .form-label{font-weight:600;color:#0A2A4A;font-size:.88rem;margin-bottom:5px}
+.rq-card textarea.form-control{min-height:110px;resize:vertical}
+.rq-checkbox-group{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rq-checkbox-group label{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f8f9fc;border-radius:10px;cursor:pointer;transition:all .25s;font-size:.88rem;font-weight:500;color:#444;border:1.5px solid transparent}
+.rq-checkbox-group label:hover{background:rgba(208,117,23,0.05);border-color:rgba(208,117,23,0.18);transform:translateY(-1px)}
+.rq-checkbox-group input[type="checkbox"]{width:17px;height:17px;accent-color:#D07517;flex-shrink:0;cursor:pointer}
+.rq-checkbox-group input[type="checkbox"]:checked+span{color:#D07517;font-weight:600}
+.rq-checkbox-group label:has(input:checked){background:rgba(208,117,23,0.07);border-color:#D07517;box-shadow:0 2px 8px rgba(208,117,23,0.08)}
+.rq-category-title{font-size:.82rem;font-weight:700;color:#0A2A4A;text-transform:uppercase;letter-spacing:1px;margin:18px 0 8px;padding-left:4px;display:flex;align-items:center;gap:8px}
+.rq-category-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(10,42,74,0.1),transparent)}
+.rq-submit-btn{background:linear-gradient(135deg,#D07517,#e68923);border:none;padding:14px 40px;border-radius:50px;font-weight:700;font-size:1rem;letter-spacing:1px;text-transform:uppercase;transition:all .3s;width:100%;position:relative;overflow:hidden}
+.rq-submit-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);transition:left .5s}
+.rq-submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(208,117,23,0.35)}
+.rq-submit-btn:hover::before{left:100%}
+.rq-summary{background:linear-gradient(135deg,#f0f7ff,#e8f0fe);border-radius:12px;padding:18px;margin-top:16px;display:none;border:1px solid rgba(10,42,74,0.06)}
+.rq-summary.show{display:block}
+.rq-summary h6{color:#0A2A4A;font-weight:700;margin-bottom:10px;font-size:.9rem}
+.rq-summary .selected-service{display:inline-block;background:#0A2A4A;color:#fff;padding:5px 14px;border-radius:20px;font-size:.8rem;margin:3px 4px;transition:all .2s}
+.rq-summary .selected-service:hover{background:#D07517}
+.rq-dropzone{border:2px dashed #d0d5dd;border-radius:12px;padding:30px;text-align:center;cursor:pointer;transition:all .3s;background:#fafbfc}
+.rq-dropzone:hover{border-color:#D07517;background:rgba(208,117,23,0.03)}
+.rq-dropzone.has-files{border-color:#D07517;background:rgba(208,117,23,0.04)}
+.rq-dropzone i{font-size:2rem;color:#D07517;margin-bottom:8px}
+.rq-dropzone p{color:#888;font-size:.85rem;margin:0}
+.rq-dropzone .form-control{display:none}
+.rq-file-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.rq-file-item{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e4e7ec;padding:5px 12px;border-radius:8px;font-size:.8rem;color:#333;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.rq-file-item .remove-file{cursor:pointer;color:#999;font-size:.7rem;transition:color .2s}
+.rq-file-item .remove-file:hover{color:#e74c3c}
+.rq-sidebar-card{background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 20px rgba(10,42,74,0.06);border:1px solid rgba(10,42,74,0.04);position:sticky;top:100px}
+.rq-sidebar-card h5{color:#0A2A4A;font-weight:700;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #D07517;display:flex;align-items:center;gap:10px;font-size:1.05rem}
+.rq-sidebar-card h5 i{color:#D07517}
+.rq-sidebar-card .rq-submit-btn{margin-top:16px}
+.rq-sidebar-info{background:#f8f9fc;border-radius:10px;padding:14px;margin-top:16px;font-size:.82rem;color:#666;line-height:1.6}
+.rq-sidebar-info i{color:#D07517;margin-right:6px}
+@media(max-width:991px){.rq-hero{padding:50px 0}.rq-hero .rq-step-indicator{flex-wrap:nowrap;overflow-x:auto;border-radius:12px}.rq-step{padding:6px 14px;white-space:nowrap;font-size:.72rem}.rq-step-indicator{justify-content:flex-start}}
+@media(min-width:992px){.rq-checkbox-group{grid-template-columns:1fr 1fr 1fr}}@media(max-width:768px){.rq-checkbox-group{grid-template-columns:1fr}.rq-card{padding:20px}.rq-hero h1{font-size:1.5rem}.rq-hero .rq-step-indicator{gap:4px;padding:4px}.rq-step{padding:5px 10px;font-size:.68rem}}
+</style>
+</head>
+<body>
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light sh-navbar px-4 px-lg-5">
+    <button class="navbar-toggler navbar-toggler-offcanvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="hamburger-menu"><span></span><span></span><span></span></span>
+    </button>
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="hamburger-menu"><span></span><span></span><span></span></span>
+    </button>
+    <a href="index.html" class="navbar-brand p-0"><img src="img/logo1.png" alt="SAC Arabia"></a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <button class="btn-close-menu" type="button" aria-label="Close menu" onclick="document.querySelector('.navbar-toggler').click()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="navbar-nav ms-auto py-0">
+            <a href="index.html" class="nav-item nav-link">Home</a>
+            <div class="nav-item dropdown">
+                <a href="service.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Services</a>
+                <div class="dropdown-menu m-0">
+                    <div class="dropdown-item dropdown-submenu position-relative">
+                        <a href="materialsupply.html">Material Supply</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="civil.html">Civil</a></li>
+                            <li><a class="dropdown-item" href="electrical.html">Electrical</a></li>
+                            <li><a class="dropdown-item" href="mechanical.html">Mechanical</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-item dropdown-submenu position-relative">
+                        <a href="constructionandengineering.html">Contracting</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="industrialcoating.html">Industrial Coating</a></li>
+                            <li><a class="dropdown-item" href="pipingnetwork.html">Piping Network</a></li>
+                            <li><a class="dropdown-item" href="steelstructureandbuildings.html">Steel Structure and Buildings</a></li>
+                            <li><a class="dropdown-item" href="electromechanical.html">Electromechanical Services</a></li>
+                            <li><a class="dropdown-item" href="testingandcommissioning.html">Testing &amp; Commissioning</a></li>
+                            <li><a class="dropdown-item" href="earthwork.html">Earthworks</a></li>
+                            <li><a class="dropdown-item" href="tocksystem.html">TOCK System</a></li>
+                            <li><a class="dropdown-item" href="asphaltpaving.html">Asphalt Paving</a></li>
+                            <li><a class="dropdown-item" href="rockcrushing.html">Rock Crushing</a></li>
+                            <li><a class="dropdown-item" href="buildingsrenovation.html">Buildings Renovation</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-item dropdown-submenu position-relative">
+                        <a href="Shutdown and Maintenance.html">Shutdown &amp; Maintenance</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="safetyreliefvalves.html">Safety Relief Valves Setting, Testing and Calibration</a></li>
+                            <li><a class="dropdown-item" href="tanksmaintenance.html">Tanks Maintenance and Cleaning</a></li>
+                            <li><a class="dropdown-item" href="catalysthandling.html">Catalyst Handling Services</a></li>
+                            <li><a class="dropdown-item" href="hydrojetting.html">Hydro Jetting</a></li>
+                            <li><a class="dropdown-item" href="mechanicalservices.html">Mechanical Services &amp; Industrial Waste Management</a></li>
+                            <li><a class="dropdown-item" href="chemicalcleaning.html">Chemical Cleaning</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-item dropdown-submenu position-relative">
+                        <a href="rental supply.html">Rental Supply</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="manpower.html">Manpower</a></li>
+                            <li><a class="dropdown-item" href="heavyequipment.html">Heavy Equipment</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About</a>
+                <div class="dropdown-menu m-0">
+                    <a href="about.html" class="dropdown-item">About Us</a>
+                    <a href="ourvision.html" class="dropdown-item">OUR VISION</a>
+                    <a href="ourmission.html" class="dropdown-item">OUR MISSION</a>
+                </div>
+            </div>
+            <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+        </div>
+        <a href="request-quotation.html" class="btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">Ask for a Quotation</a>
+    </div>
+</nav>
+<div class="offcanvas offcanvas-start sh-offcanvas" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
+    <div class="offcanvas-header">
+        <a href="index.html" class="text-decoration-none"><img src="img/logo1.png" alt="SAC Arabia" style="max-height: 50px;"></a>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <nav class="sh-offcanvas-nav">
+            <a href="index.html" class="sh-offcanvas-link">Home</a>
+            <div class="sh-offcanvas-dropdown">
+                <a href="service.html" class="sh-offcanvas-link" onclick="toggleSubmenu(event)">Services <i class="fas fa-chevron-down ms-2" style="font-size:0.65rem;"></i></a>
+                <div class="sh-offcanvas-submenu">
+                    <div class="sh-offcanvas-subgroup">
+                        <a href="materialsupply.html" class="sh-offcanvas-sublink" onclick="toggleSubSubmenu(event)">Material Supply <i class="fas fa-chevron-down ms-2" style="font-size:0.6rem;"></i></a>
+                        <div class="sh-offcanvas-subsub">
+                            <a href="civil.html" class="sh-offcanvas-sublink">Civil</a>
+                            <a href="electrical.html" class="sh-offcanvas-sublink">Electrical</a>
+                            <a href="mechanical.html" class="sh-offcanvas-sublink">Mechanical</a>
+                        </div>
+                    </div>
+                    <div class="sh-offcanvas-subgroup">
+                        <a href="constructionandengineering.html" class="sh-offcanvas-sublink" onclick="toggleSubSubmenu(event)">Contracting <i class="fas fa-chevron-down ms-2" style="font-size:0.6rem;"></i></a>
+                        <div class="sh-offcanvas-subsub">
+                            <a href="industrialcoating.html" class="sh-offcanvas-sublink">Industrial Coating</a>
+                            <a href="pipingnetwork.html" class="sh-offcanvas-sublink">Piping Network</a>
+                            <a href="steelstructureandbuildings.html" class="sh-offcanvas-sublink">Steel Structure and Buildings</a>
+                            <a href="electromechanical.html" class="sh-offcanvas-sublink">Electromechanical Services</a>
+                            <a href="testingandcommissioning.html" class="sh-offcanvas-sublink">Testing &amp; Commissioning</a>
+                            <a href="earthwork.html" class="sh-offcanvas-sublink">Earthworks</a>
+                            <a href="tocksystem.html" class="sh-offcanvas-sublink">TOCK System</a>
+                            <a href="asphaltpaving.html" class="sh-offcanvas-sublink">Asphalt Paving</a>
+                            <a href="rockcrushing.html" class="sh-offcanvas-sublink">Rock Crushing</a>
+                            <a href="buildingsrenovation.html" class="sh-offcanvas-sublink">Buildings Renovation</a>
+                        </div>
+                    </div>
+                    <div class="sh-offcanvas-subgroup">
+                        <a href="Shutdown and Maintenance.html" class="sh-offcanvas-sublink" onclick="toggleSubSubmenu(event)">Shutdown &amp; Maintenance <i class="fas fa-chevron-down ms-2" style="font-size:0.6rem;"></i></a>
+                        <div class="sh-offcanvas-subsub">
+                            <a href="safetyreliefvalves.html" class="sh-offcanvas-sublink">Safety Relief Valves Setting, Testing and Calibration</a>
+                            <a href="tanksmaintenance.html" class="sh-offcanvas-sublink">Tanks Maintenance and Cleaning</a>
+                            <a href="catalysthandling.html" class="sh-offcanvas-sublink">Catalyst Handling Services</a>
+                            <a href="hydrojetting.html" class="sh-offcanvas-sublink">Hydro Jetting</a>
+                            <a href="mechanicalservices.html" class="sh-offcanvas-sublink">Mechanical Services &amp; Industrial Waste Management</a>
+                            <a href="chemicalcleaning.html" class="sh-offcanvas-sublink">Chemical Cleaning</a>
+                        </div>
+                    </div>
+                    <div class="sh-offcanvas-subgroup">
+                        <a href="rental supply.html" class="sh-offcanvas-sublink" onclick="toggleSubSubmenu(event)">Rental Supply <i class="fas fa-chevron-down ms-2" style="font-size:0.6rem;"></i></a>
+                        <div class="sh-offcanvas-subsub">
+                            <a href="manpower.html" class="sh-offcanvas-sublink">Manpower</a>
+                            <a href="heavyequipment.html" class="sh-offcanvas-sublink">Heavy Equipment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sh-offcanvas-dropdown">
+                <a href="#" class="sh-offcanvas-link" onclick="toggleSubmenu(event)">About <i class="fas fa-chevron-down ms-2" style="font-size:0.65rem;"></i></a>
+                <div class="sh-offcanvas-submenu">
+                    <a href="about.html" class="sh-offcanvas-sublink">About Us</a>
+                    <a href="ourvision.html" class="sh-offcanvas-sublink">OUR VISION</a>
+                    <a href="ourmission.html" class="sh-offcanvas-sublink">OUR MISSION</a>
+                </div>
+            </div>
+            <a href="contact.html" class="sh-offcanvas-link">Contact Us</a>
+        </nav>
+    </div>
+    <div class="offcanvas-footer p-3 border-top" style="border-color:rgba(255,255,255,0.1)!important;">
+        <a href="request-quotation.html" class="btn btn-primary w-100 rounded-pill text-white py-2 px-4" style="background:#D07517;border-color:#D07517;">Ask for a Quotation</a>
+    </div>
+</div><main>
+
+<div class="rq-hero wow fadeIn">
+    <div class="container text-center">
+        <div class="rq-hero-badge"><i class="fas fa-file-invoice"></i> Get a Quote</div>
+        <h1>Request a <span>Quotation</span></h1>
+        <p>Tell us about your project requirements and our team will prepare a customized quotation tailored to your needs.</p>
+        <div class="rq-step-indicator">
+            <div class="rq-step active"><span class="step-num">1</span> Details</div>
+            <div class="rq-step"><span class="step-num">2</span> Services</div>
+            <div class="rq-step"><span class="step-num">3</span> Submit</div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid py-5" style="max-width:1400px">
+    <form id="quotationForm" onsubmit="return handleSubmit(event)">
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-10">
+                <div class="rq-section rq-card wow fadeInUp" data-wow-delay="0.1s">
+                    <h5><i class="fas fa-user"></i> Contact Information</h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Full Name <span style="color:#D07517">*</span></label>
+                            <input type="text" class="form-control" id="fullName" placeholder="Your full name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Company Name</label>
+                            <input type="text" class="form-control" id="companyName" placeholder="Company name">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email Address <span style="color:#D07517">*</span></label>
+                            <input type="email" class="form-control" id="email" placeholder="email@company.com" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Phone Number <span style="color:#D07517">*</span></label>
+                            <input type="tel" class="form-control" id="phone" placeholder="+966 5X XXX XXXX" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="rq-section rq-card wow fadeInUp" data-wow-delay="0.2s">
+                    <h5><i class="fas fa-list-check"></i> Services Required</h5>
+                    <p style="color:#888;font-size:.88rem;margin-top:-10px;margin-bottom:16px;">Select all services you need a quotation for</p>
+                    <div class="rq-category-title">Material Supply</div>
+                    <div class="rq-checkbox-group">
+                        <label><input type="checkbox" name="services" value="Civil Material Supply" onchange="updateSummary()"><span>Civil Material Supply</span></label>
+                        <label><input type="checkbox" name="services" value="Electrical Material Supply" onchange="updateSummary()"><span>Electrical Material Supply</span></label>
+                        <label><input type="checkbox" name="services" value="Mechanical Material Supply" onchange="updateSummary()"><span>Mechanical Material Supply</span></label>
+                    </div>
+                    <div class="rq-category-title">Contracting</div>
+                    <div class="rq-checkbox-group">
+                        <label><input type="checkbox" name="services" value="Industrial Coating" onchange="updateSummary()"><span>Industrial Coating</span></label>
+                        <label><input type="checkbox" name="services" value="Piping Network" onchange="updateSummary()"><span>Piping Network</span></label>
+                        <label><input type="checkbox" name="services" value="Steel Structure and Buildings" onchange="updateSummary()"><span>Steel Structure and Buildings</span></label>
+                        <label><input type="checkbox" name="services" value="Electromechanical Services" onchange="updateSummary()"><span>Electromechanical Services</span></label>
+                        <label><input type="checkbox" name="services" value="Testing &amp; Commissioning" onchange="updateSummary()"><span>Testing &amp; Commissioning</span></label>
+                        <label><input type="checkbox" name="services" value="Earthworks" onchange="updateSummary()"><span>Earthworks</span></label>
+                        <label><input type="checkbox" name="services" value="TOCK System" onchange="updateSummary()"><span>TOCK System</span></label>
+                        <label><input type="checkbox" name="services" value="Asphalt Paving" onchange="updateSummary()"><span>Asphalt Paving</span></label>
+                        <label><input type="checkbox" name="services" value="Rock Crushing" onchange="updateSummary()"><span>Rock Crushing</span></label>
+                        <label><input type="checkbox" name="services" value="Buildings Renovation" onchange="updateSummary()"><span>Buildings Renovation</span></label>
+                    </div>
+                    <div class="rq-category-title">Shutdown &amp; Maintenance</div>
+                    <div class="rq-checkbox-group">
+                        <label><input type="checkbox" name="services" value="Safety Relief Valves" onchange="updateSummary()"><span>Safety Relief Valves Setting, Testing and Calibration</span></label>
+                        <label><input type="checkbox" name="services" value="Tanks Maintenance" onchange="updateSummary()"><span>Tanks Maintenance and Cleaning</span></label>
+                        <label><input type="checkbox" name="services" value="Catalyst Handling" onchange="updateSummary()"><span>Catalyst Handling Services</span></label>
+                        <label><input type="checkbox" name="services" value="Hydro Jetting" onchange="updateSummary()"><span>Hydro Jetting</span></label>
+                        <label><input type="checkbox" name="services" value="Mechanical Services" onchange="updateSummary()"><span>Mechanical Services &amp; Industrial Waste Management</span></label>
+                        <label><input type="checkbox" name="services" value="Chemical Cleaning" onchange="updateSummary()"><span>Chemical Cleaning</span></label>
+                    </div>
+                    <div class="rq-category-title">Rental Supply</div>
+                    <div class="rq-checkbox-group">
+                        <label><input type="checkbox" name="services" value="Manpower Supply" onchange="updateSummary()"><span>Manpower Supply</span></label>
+                        <label><input type="checkbox" name="services" value="Heavy Equipment" onchange="updateSummary()"><span>Heavy Equipment Rental</span></label>
+                    </div>
+                </div>
+                <div class="rq-section rq-card wow fadeInUp" data-wow-delay="0.3s">
+                    <h5><i class="fas fa-file-lines"></i> Project Details</h5>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label">Project Description <span style="color:#D07517">*</span></label>
+                            <textarea class="form-control" id="description" placeholder="Describe your project scope, requirements, timeline, and any specific details you'd like us to consider..." required></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Project Location</label>
+                            <input type="text" class="form-control" id="location" placeholder="City / Site">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Target Date</label>
+                            <input type="date" class="form-control" id="targetDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="rq-section rq-card wow fadeInUp" data-wow-delay="0.4s">
+                    <h5><i class="fas fa-paperclip"></i> Attachments (Optional)</h5>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label">Upload drawings, specifications, or supporting documents</label>
+                            <div class="rq-dropzone" id="dropzone" onclick="document.getElementById('attachments').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p><strong>Click to upload</strong> or drag and drop</p>
+                                <p style="font-size:.78rem;color:#aaa;margin-top:2px;">PDF, DWG, DOC, XLS, JPG, PNG &mdash; Max 10MB per file</p>
+                                <input type="file" id="attachments" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png,.dwg" data-max-size="10485760" onchange="handleFiles(this)">
+                            </div>
+                            <div class="rq-file-list" id="fileList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container-fluid py-5" style="max-width:1400px">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="rq-sidebar-card wow fadeInUp" data-wow-delay="0.3s">
+                <h5><i class="fas fa-receipt"></i> Summary</h5>
+                <div id="summaryContent">
+                    <div style="text-align:center;padding:20px 0;color:#aaa;">
+                        <i class="fas fa-file-invoice" style="font-size:2.2rem;margin-bottom:10px;color:#ddd;"></i>
+                        <p style="font-size:.85rem;margin:0">Select services above to see a summary of your request.</p>
+                    </div>
+                </div>
+                <div class="rq-summary" id="selectedServicesSummary">
+                    <h6><i class="fas fa-check-circle" style="color:#D07517;margin-right:4px;"></i> Selected Services</h6>
+                    <div id="serviceTags"></div>
+                </div>
+                <button type="submit" class="btn rq-submit-btn text-white">
+                    <i class="fas fa-paper-plane me-2"></i> Submit Request
+                </button>
+                <div class="rq-sidebar-info">
+                    <i class="fas fa-clock"></i> We typically respond within <strong>24 hours</strong><br>
+                    <i class="fas fa-lock"></i> Your information is kept strictly confidential
+                </div>
+            </div>
+        </div>
+    </div>
+</div></main>
+
+<div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="footer-item d-flex flex-column">
+                    <h4 class="text-white mb-4">SAC ARABIA</h4>
+                    <p>SAC Arabia is a leading provider of value-added Industrial Services and material supply for the Oil &amp; Gas, Petrochemical, and Process Industries throughout KSA and Gulf region</p>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-share fa-2x text-white me-2"></i>
+                        <a class="btn-square btn btn-primary text-white rounded-circle mx-1" href="https://facebook.com"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn-square btn btn-primary text-white rounded-circle mx-1" href="https://twitter.com"><i class="fab fa-twitter"></i></a>
+                        <a class="btn-square btn btn-primary text-white rounded-circle mx-1" href="https://instagram.com"><i class="fab fa-instagram"></i></a>
+                        <a class="btn-square btn btn-primary text-white rounded-circle mx-1" href="https://linkedin.com"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="footer-item d-flex flex-column">
+                    <h4 class="mb-4 text-white">Quick Links</h4>
+                    <a href="about.html"><i class="fas fa-angle-right me-2"></i> About Us</a>
+                    <a href="contact.html"><i class="fas fa-angle-right me-2"></i> Contact Us</a>
+                    <a href="safetypolicy.html"><i class="fas fa-angle-right me-2"></i> Safety Policy</a>
+                    <a href="ourvision.html"><i class="fas fa-angle-right me-2"></i> Our Vision</a>
+                    <a href="ourmission.html"><i class="fas fa-angle-right me-2"></i> Our Mission</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="footer-item d-flex flex-column">
+                    <h4 class="mb-4 text-white">Our Services</h4>
+                    <a href="materialsupply.html"><i class="fas fa-angle-right me-2"></i> Material Supply</a>
+                    <a href="constructionandengineering.html"><i class="fas fa-angle-right me-2"></i> Contracting</a>
+                    <a href="Shutdown and Maintenance.html"><i class="fas fa-angle-right me-2"></i> Shutdown &amp; Maintenance</a>
+                    <a href="rental supply.html"><i class="fas fa-angle-right me-2"></i> Rental Supply</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="footer-item d-flex flex-column">
+                    <h4 class="mb-4 text-white">Contact Info</h4>
+                    <a href=""><i class="fa fa-map-marker-alt me-2"></i> Dammam - Saudi Arabia</a>
+                    <a href="mailto:info@sacarabia.com"><i class="fas fa-envelope me-2"></i> info@sacarabia.com</a>
+                    <a href="tel:+966583923480"><i class="fas fa-phone me-2"></i> +966 58 392 3480</a>
+                    <a href="tel:+966500951165"><i class="fas fa-phone me-2"></i> +966 50 095 1165</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid copyright py-4">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-md-6 text-center text-md-start mb-md-0">
+                <span class="text-white"><a href="#">2026 <i class="fas fa-copyright text-light me-2"></i><span style="color: #D07517;">SAC ARABIA</span></a>, All right reserved.</span>
+            </div>
+            <div class="col-md-6 text-center text-md-end text-white">
+                Designed By <a class="border-bottom" href="https://cyber.oversight.ee/" style="color: #D07517; text-transform: uppercase; display: inline-flex; align-items: center; gap: 6px;"><img src="img/cyber.png" alt="" style="height: 1em; width: auto; display: inline-block;">Cyber Oversight</a>
+            </div>
+        </div>
+    </div>
+</div>
+<a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/wow/wow.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+<script>
+function toggleSubmenu(e){e.preventDefault();var p=e.currentTarget.parentElement;p.querySelector('.sh-offcanvas-submenu').classList.toggle('open');}
+function toggleSubSubmenu(e){e.preventDefault();var p=e.currentTarget.parentElement;p.querySelector('.sh-offcanvas-subsub').classList.toggle('open');}
+function updateSummary(){
+    var checked = document.querySelectorAll('input[name="services"]:checked');
+    var tags = document.getElementById('serviceTags');
+    var summary = document.getElementById('selectedServicesSummary');
+    var content = document.getElementById('summaryContent');
+    tags.innerHTML = '';
+    if(checked.length > 0){
+        summary.classList.add('show');
+        content.innerHTML = '';
+        checked.forEach(function(cb){var t=document.createElement('span');t.className='selected-service';t.textContent=cb.value;tags.appendChild(t);});
+    } else {
+        summary.classList.remove('show');
+        content.innerHTML = '<div style="text-align:center;padding:20px 0;color:#aaa;"><i class="fas fa-file-invoice" style="font-size:2.2rem;margin-bottom:10px;color:#ddd;"></i><p style="font-size:.85rem;margin:0">Select services above to see a summary of your request.</p></div>';
+    }
+}
+function handleFiles(input){
+    var list = document.getElementById('fileList');
+    var dropzone = document.getElementById('dropzone');
+    list.innerHTML = '';
+    for(var i=0;i<input.files.length;i++){
+        var f=input.files[i];
+        var item=document.createElement('span');
+        item.className='rq-file-item';
+        var icon='fa-file';
+        if(f.name.match(/\.pdf$/i)) icon='fa-file-pdf';
+        else if(f.name.match(/\.(doc|docx)$/i)) icon='fa-file-word';
+        else if(f.name.match(/\.(xls|xlsx)$/i)) icon='fa-file-excel';
+        else if(f.name.match(/\.(jpg|jpeg|png|gif)$/i)) icon='fa-file-image';
+        else if(f.name.match(/\.dwg$/i)) icon='fa-draw-polygon';
+        item.innerHTML='<i class="fas '+icon+'" style="color:#D07517;font-size:.85rem"></i> '+f.name+' <i class="fas fa-times remove-file" onclick="removeFile(this,'+i+')"></i>';
+        list.appendChild(item);
+    }
+    dropzone.classList.toggle('has-files',input.files.length>0);
+}
+function removeFile(el,idx){
+    var input=document.getElementById('attachments');
+    var dt=new DataTransfer();
+    for(var i=0;i<input.files.length;i++){if(i!==idx) dt.items.add(input.files[i]);}
+    input.files=dt.files;
+    handleFiles(input);
+}
+function handleSubmit(e){
+    e.preventDefault();
+    var files = document.getElementById('attachments').files;
+    var maxSize = 10485760;
+    for(var i=0;i<files.length;i++){
+        if(files[i].size > maxSize){
+            alert('File "' + files[i].name + '" exceeds the 10MB limit. Please select a smaller file.');
+            return false;
+        }
+    }
+    var name = document.getElementById('fullName').value;
+    var company = document.getElementById('companyName').value;
+    var email = document.getElementById('email').value;
+    var phone = document.getElementById('phone').value;
+    var desc = document.getElementById('description').value;
+    var location = document.getElementById('location').value;
+    var services = [];
+    document.querySelectorAll('input[name="services"]:checked').forEach(function(cb){services.push(cb.value);});
+    var subject = encodeURIComponent('Quotation Request from ' + name);
+    var body = encodeURIComponent(
+        'Name: ' + name + '\n' +
+        'Company: ' + company + '\n' +
+        'Email: ' + email + '\n' +
+        'Phone: ' + phone + '\n' +
+        'Location: ' + location + '\n' +
+        'Services: ' + services.join(', ') + '\n\n' +
+        'Project Description:\n' + desc
+    );
+    window.location.href = 'mailto:info@sacarabia.com?subject=' + subject + '&body=' + body;
+    return false;
+}
+</script>
+</body>
+</html>

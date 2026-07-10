@@ -605,9 +605,12 @@ main {
     }
 
     .navbar-brand {
-        position: relative;
-        left: auto;
-        transform: none;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .navbar-brand:hover {
+        transform: translateX(-50%) scale(1.05);
     }
 
     .sh-navbar .navbar-brand img {

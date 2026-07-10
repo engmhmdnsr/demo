@@ -1,10 +1,25 @@
 <!DOCTYPE html><html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SAC ARABIA - Request a Quotation</title>
+<meta name="theme-color" content="#0A2A4A">
+<title>Request a Quotation | SAC Arabia Industrial Services</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="" name="keywords">
-<meta content="" name="description">
+<meta content="request quotation Saudi Arabia, industrial quotation KSA, SAC Arabia quote, طلب عرض سعر, الخدمات الصناعية" name="keywords">
+<meta content="Request a quotation for industrial services, contracting, shutdown maintenance, and material supply in Saudi Arabia. اطلب عرض سعر لخدمات SAC Arabia الصناعية والمقاولات في السعودية." name="description">
+<link rel="canonical" href="https://sacarabia.com/request-quotation.html">
+
+    <!-- Local SEO (KSA) -->
+    <meta name="geo.region" content="SA-04" />
+    <meta name="geo.placename" content="Dammam, Saudi Arabia" />
+    <meta name="geo.position" content="26.4207;50.0888" />
+    <meta name="ICBM" content="26.4207, 50.0888" />
+
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="Request a Quotation | SAC Arabia Industrial Services">
+    <meta property="og:description" content="Request a quotation for industrial services, contracting, shutdown maintenance, and material supply in Saudi Arabia. اطلب عرض سعر لخدمات SAC Arabia الصناعية والمقاولات في السعودية.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SAC Arabia">
+    <meta property="og:locale" content="en_SA">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
@@ -15,6 +30,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/style.css?v=5" rel="stylesheet">
 <style>
+#successMessage.show{display:block !important}
 body{background:url('img/background.jpg') center/cover no-repeat fixed;background-attachment:fixed}
 .rq-hero{background:linear-gradient(rgba(10,42,74,0.75),rgba(10,42,74,0.75)),url('img/carousel-2.jpg') center/cover no-repeat;position:relative;overflow:hidden;padding:120px 0 80px}
 .rq-hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(208,117,23,0.12) 0%,transparent 70%);border-radius:50%;pointer-events:none}
@@ -73,6 +89,8 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
 @media(max-width:991px){.rq-hero{padding:50px 0}.rq-hero .rq-step-indicator{flex-wrap:nowrap;overflow-x:auto;border-radius:12px}.rq-step{padding:6px 14px;white-space:nowrap;font-size:.72rem}.rq-step-indicator{justify-content:flex-start}}
 @media(min-width:992px){.rq-checkbox-group{grid-template-columns:1fr 1fr 1fr}}@media(max-width:768px){.rq-checkbox-group{grid-template-columns:1fr}.rq-card{padding:20px}.rq-hero h1{font-size:1.5rem}.rq-hero .rq-step-indicator{gap:4px;padding:4px}.rq-step{padding:5px 10px;font-size:.68rem}}
 </style>
+
+    <link rel="icon" type="image/png" href="img/logo2.png">
 </head>
 <body>
 <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -95,6 +113,14 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
         <div class="navbar-nav ms-auto py-0">
             <a href="index.html" class="nav-item nav-link">Home</a>
             <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About</a>
+                <div class="dropdown-menu m-0">
+                    <a href="about.html" class="dropdown-item">About Us</a>
+                    <a href="ourvision.html" class="dropdown-item">OUR VISION</a>
+                    <a href="ourmission.html" class="dropdown-item">OUR MISSION</a>
+                </div>
+            </div>
+            <div class="nav-item dropdown">
                 <a href="service.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Services</a>
                 <div class="dropdown-menu m-0">
                     <div class="dropdown-item dropdown-submenu position-relative">
@@ -114,14 +140,14 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
                             <li><a class="dropdown-item" href="electromechanical.html">Electromechanical Services</a></li>
                             <li><a class="dropdown-item" href="testingandcommissioning.html">Testing &amp; Commissioning</a></li>
                             <li><a class="dropdown-item" href="earthwork.html">Earthworks</a></li>
-                            <li><a class="dropdown-item" href="tocksystem.html">TOCK System</a></li>
+                            <li><a class="dropdown-item" href="rockcrushing.html">Rock Crushing &amp; TOCK System</a></li>
                             <li><a class="dropdown-item" href="asphaltpaving.html">Asphalt Paving</a></li>
-                            <li><a class="dropdown-item" href="rockcrushing.html">Rock Crushing</a></li>
+                            
                             <li><a class="dropdown-item" href="buildingsrenovation.html">Buildings Renovation</a></li>
                         </ul>
                     </div>
                     <div class="dropdown-item dropdown-submenu position-relative">
-                        <a href="Shutdown and Maintenance.html">Shutdown &amp; Maintenance</a>
+                        <a href="shutdown-and-maintenance.html">Shutdown &amp; Maintenance</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="safetyreliefvalves.html">Safety Relief Valves Setting, Testing and Calibration</a></li>
                             <li><a class="dropdown-item" href="tanksmaintenance.html">Tanks Maintenance and Cleaning</a></li>
@@ -132,20 +158,12 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
                         </ul>
                     </div>
                     <div class="dropdown-item dropdown-submenu position-relative">
-                        <a href="rental supply.html">Rental Supply</a>
+                        <a href="rental-supply.html">Rental Supply</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="manpower.html">Manpower</a></li>
                             <li><a class="dropdown-item" href="heavyequipment.html">Heavy Equipment</a></li>
                         </ul>
                     </div>
-                </div>
-            </div>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About</a>
-                <div class="dropdown-menu m-0">
-                    <a href="about.html" class="dropdown-item">About Us</a>
-                    <a href="ourvision.html" class="dropdown-item">OUR VISION</a>
-                    <a href="ourmission.html" class="dropdown-item">OUR MISSION</a>
                 </div>
             </div>
             <a href="contact.html" class="nav-item nav-link">Contact Us</a>
@@ -155,12 +173,20 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
 </nav>
 <div class="offcanvas offcanvas-start sh-offcanvas" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
     <div class="offcanvas-header">
-        <a href="index.html" class="text-decoration-none"><img src="img/logo1.png" alt="SAC Arabia" style="max-height: 50px;"></a>
+        <a href="index.html" class="text-decoration-none"><img src="img/logo1.png" alt="SAC Arabia" style="max-height: 70px;"></a>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body p-0">
         <nav class="sh-offcanvas-nav">
             <a href="index.html" class="sh-offcanvas-link">Home</a>
+            <div class="sh-offcanvas-dropdown">
+                <a href="#" class="sh-offcanvas-link" onclick="toggleSubmenu(event)">About <i class="fas fa-chevron-down ms-2" style="font-size:0.65rem;"></i></a>
+                <div class="sh-offcanvas-submenu">
+                    <a href="about.html" class="sh-offcanvas-sublink">About Us</a>
+                    <a href="ourvision.html" class="sh-offcanvas-sublink">OUR VISION</a>
+                    <a href="ourmission.html" class="sh-offcanvas-sublink">OUR MISSION</a>
+                </div>
+            </div>
             <div class="sh-offcanvas-dropdown">
                 <a href="service.html" class="sh-offcanvas-link" onclick="toggleSubmenu(event)">Services <i class="fas fa-chevron-down ms-2" style="font-size:0.65rem;"></i></a>
                 <div class="sh-offcanvas-submenu">
@@ -181,14 +207,14 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
                             <a href="electromechanical.html" class="sh-offcanvas-sublink">Electromechanical Services</a>
                             <a href="testingandcommissioning.html" class="sh-offcanvas-sublink">Testing &amp; Commissioning</a>
                             <a href="earthwork.html" class="sh-offcanvas-sublink">Earthworks</a>
-                            <a href="tocksystem.html" class="sh-offcanvas-sublink">TOCK System</a>
+                            <a href="rockcrushing.html" class="sh-offcanvas-sublink">Rock Crushing &amp; TOCK System</a>
                             <a href="asphaltpaving.html" class="sh-offcanvas-sublink">Asphalt Paving</a>
-                            <a href="rockcrushing.html" class="sh-offcanvas-sublink">Rock Crushing</a>
+                            
                             <a href="buildingsrenovation.html" class="sh-offcanvas-sublink">Buildings Renovation</a>
                         </div>
                     </div>
                     <div class="sh-offcanvas-subgroup">
-                        <a href="Shutdown and Maintenance.html" class="sh-offcanvas-sublink" onclick="toggleSubSubmenu(event)">Shutdown &amp; Maintenance <i class="fas fa-chevron-down ms-2" style="font-size:0.6rem;"></i></a>
+                        <a href="shutdown-and-maintenance.html" class="sh-offcanvas-sublink" onclick="toggleSubSubmenu(event)">Shutdown &amp; Maintenance <i class="fas fa-chevron-down ms-2" style="font-size:0.6rem;"></i></a>
                         <div class="sh-offcanvas-subsub">
                             <a href="safetyreliefvalves.html" class="sh-offcanvas-sublink">Safety Relief Valves Setting, Testing and Calibration</a>
                             <a href="tanksmaintenance.html" class="sh-offcanvas-sublink">Tanks Maintenance and Cleaning</a>
@@ -199,20 +225,12 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
                         </div>
                     </div>
                     <div class="sh-offcanvas-subgroup">
-                        <a href="rental supply.html" class="sh-offcanvas-sublink" onclick="toggleSubSubmenu(event)">Rental Supply <i class="fas fa-chevron-down ms-2" style="font-size:0.6rem;"></i></a>
+                        <a href="rental-supply.html" class="sh-offcanvas-sublink" onclick="toggleSubSubmenu(event)">Rental Supply <i class="fas fa-chevron-down ms-2" style="font-size:0.6rem;"></i></a>
                         <div class="sh-offcanvas-subsub">
                             <a href="manpower.html" class="sh-offcanvas-sublink">Manpower</a>
                             <a href="heavyequipment.html" class="sh-offcanvas-sublink">Heavy Equipment</a>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="sh-offcanvas-dropdown">
-                <a href="#" class="sh-offcanvas-link" onclick="toggleSubmenu(event)">About <i class="fas fa-chevron-down ms-2" style="font-size:0.65rem;"></i></a>
-                <div class="sh-offcanvas-submenu">
-                    <a href="about.html" class="sh-offcanvas-sublink">About Us</a>
-                    <a href="ourvision.html" class="sh-offcanvas-sublink">OUR VISION</a>
-                    <a href="ourmission.html" class="sh-offcanvas-sublink">OUR MISSION</a>
                 </div>
             </div>
             <a href="contact.html" class="sh-offcanvas-link">Contact Us</a>
@@ -236,7 +254,14 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
     </div>
 </div>
 <div class="container-fluid py-5" style="max-width:1400px">
-    <form id="quotationForm" onsubmit="return handleSubmit(event)">
+    <div id="successMessage" style="display:none;background:#0A2A4A;border-radius:16px;padding:50px 30px;text-align:center;margin:0 15px;border:2px solid rgba(208,117,23,0.3)">
+        <div style="width:70px;height:70px;border-radius:50%;background:rgba(208,117,23,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+            <i class="fas fa-check-circle" style="font-size:2rem;color:#D07517"></i>
+        </div>
+        <h3 style="color:#fff;font-weight:700;margin-bottom:8px">Thank You!</h3>
+        <p style="color:rgba(255,255,255,0.6);font-size:1rem;max-width:450px;margin:0 auto">Your quotation request has been submitted successfully. Our team will review your requirements and get back to you within <strong style="color:#D07517">24 hours</strong>.</p>
+    </div>
+    <form id="quotationForm" action="send-mail.php" method="POST">
         <div class="row g-4 justify-content-center">
             <div class="col-lg-10">
                 <div class="rq-section rq-card wow fadeInUp" data-wow-delay="0.1s">
@@ -244,19 +269,19 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">Full Name <span style="color:#D07517">*</span></label>
-                            <input type="text" class="form-control" id="fullName" placeholder="Your full name" required>
+                            <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Your full name" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Company Name</label>
-                            <input type="text" class="form-control" id="companyName" placeholder="Company name">
+                            <input type="text" class="form-control" id="companyName" name="companyName" placeholder="Company name">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Email Address <span style="color:#D07517">*</span></label>
-                            <input type="email" class="form-control" id="email" placeholder="email@company.com" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="email@company.com" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Phone Number <span style="color:#D07517">*</span></label>
-                            <input type="tel" class="form-control" id="phone" placeholder="+966 5X XXX XXXX" required>
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="+966 5X XXX XXXX" required>
                         </div>
                     </div>
                 </div>
@@ -302,15 +327,15 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
                     <div class="row g-3">
                         <div class="col-12">
                             <label class="form-label">Project Description <span style="color:#D07517">*</span></label>
-                            <textarea class="form-control" id="description" placeholder="Describe your project scope, requirements, timeline, and any specific details you'd like us to consider..." required></textarea>
+                            <textarea class="form-control" id="description" name="description" placeholder="Describe your project scope, requirements, timeline, and any specific details you'd like us to consider..." required></textarea>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Project Location</label>
-                            <input type="text" class="form-control" id="location" placeholder="City / Site">
+                            <input type="text" class="form-control" id="location" name="location" placeholder="City / Site">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Target Date</label>
-                            <input type="date" class="form-control" id="targetDate">
+                            <input type="date" class="form-control" id="targetDate" name="targetDate">
                         </div>
                     </div>
                 </div>
@@ -323,41 +348,37 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <p><strong>Click to upload</strong> or drag and drop</p>
                                 <p style="font-size:.78rem;color:#aaa;margin-top:2px;">PDF, DWG, DOC, XLS, JPG, PNG &mdash; Max 10MB per file</p>
-                                <input type="file" id="attachments" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png,.dwg" data-max-size="10485760" onchange="handleFiles(this)">
+                                <input type="file" id="attachments" name="attachments[]" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png,.dwg" data-max-size="10485760" onchange="handleFiles(this)">
                             </div>
                             <div class="rq-file-list" id="fileList"></div>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Summary Card INSIDE Form -->
+                <div class="rq-sidebar-card wow fadeInUp" data-wow-delay="0.3s">
+                    <h5><i class="fas fa-receipt"></i> Summary</h5>
+                    <div id="summaryContent">
+                        <div style="text-align:center;padding:20px 0;color:#aaa;">
+                            <i class="fas fa-file-invoice" style="font-size:2.2rem;margin-bottom:10px;color:#ddd;"></i>
+                            <p style="font-size:.85rem;margin:0">Select services above to see a summary of your request.</p>
+                        </div>
+                    </div>
+                    <div class="rq-summary" id="selectedServicesSummary">
+                        <h6><i class="fas fa-check-circle" style="color:#D07517;margin-right:4px;"></i> Selected Services</h6>
+                        <div id="serviceTags"></div>
+                    </div>
+                    <button type="submit" class="btn rq-submit-btn text-white">
+                        <i class="fas fa-paper-plane me-2"></i> Submit Request
+                    </button>
+                    <div class="rq-sidebar-info">
+                        <i class="fas fa-clock"></i> We typically respond within <strong>24 hours</strong><br>
+                        <i class="fas fa-lock"></i> Your information is kept strictly confidential
+                    </div>
+                </div>
             </div>
         </div>
     </form>
-</div>
-<div class="container-fluid py-5" style="max-width:1400px">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="rq-sidebar-card wow fadeInUp" data-wow-delay="0.3s">
-                <h5><i class="fas fa-receipt"></i> Summary</h5>
-                <div id="summaryContent">
-                    <div style="text-align:center;padding:20px 0;color:#aaa;">
-                        <i class="fas fa-file-invoice" style="font-size:2.2rem;margin-bottom:10px;color:#ddd;"></i>
-                        <p style="font-size:.85rem;margin:0">Select services above to see a summary of your request.</p>
-                    </div>
-                </div>
-                <div class="rq-summary" id="selectedServicesSummary">
-                    <h6><i class="fas fa-check-circle" style="color:#D07517;margin-right:4px;"></i> Selected Services</h6>
-                    <div id="serviceTags"></div>
-                </div>
-                <button type="submit" class="btn rq-submit-btn text-white">
-                    <i class="fas fa-paper-plane me-2"></i> Submit Request
-                </button>
-                <div class="rq-sidebar-info">
-                    <i class="fas fa-clock"></i> We typically respond within <strong>24 hours</strong><br>
-                    <i class="fas fa-lock"></i> Your information is kept strictly confidential
-                </div>
-            </div>
-        </div>
-    </div>
 </div></main>
 
 <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
@@ -391,14 +412,14 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
                     <h4 class="mb-4 text-white">Our Services</h4>
                     <a href="materialsupply.html"><i class="fas fa-angle-right me-2"></i> Material Supply</a>
                     <a href="constructionandengineering.html"><i class="fas fa-angle-right me-2"></i> Contracting</a>
-                    <a href="Shutdown and Maintenance.html"><i class="fas fa-angle-right me-2"></i> Shutdown &amp; Maintenance</a>
-                    <a href="rental supply.html"><i class="fas fa-angle-right me-2"></i> Rental Supply</a>
+                    <a href="shutdown-and-maintenance.html"><i class="fas fa-angle-right me-2"></i> Shutdown &amp; Maintenance</a>
+                    <a href="rental-supply.html"><i class="fas fa-angle-right me-2"></i> Rental Supply</a>
                 </div>
             </div>
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="footer-item d-flex flex-column">
                     <h4 class="mb-4 text-white">Contact Info</h4>
-                    <a href=""><i class="fa fa-map-marker-alt me-2"></i> Dammam - Saudi Arabia</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Dammam+Saudi+Arabia"><i class="fa fa-map-marker-alt me-2"></i> Dammam - Saudi Arabia</a>
                     <a href="mailto:info@sacarabia.com"><i class="fas fa-envelope me-2"></i> info@sacarabia.com</a>
                     <a href="tel:+966583923480"><i class="fas fa-phone me-2"></i> +966 58 392 3480</a>
                     <a href="tel:+966500951165"><i class="fas fa-phone me-2"></i> +966 50 095 1165</a>
@@ -424,7 +445,7 @@ body{background:url('img/background.jpg') center/cover no-repeat fixed;backgroun
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="lib/wow/wow.min.js"></script>
 <script src="lib/easing/easing.min.js"></script>
-<script src="lib/waypoints/waypoints.min.js"></script>
+
 <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 <script src="js/main.js"></script>
 <script>
@@ -471,7 +492,7 @@ function removeFile(el,idx){
     input.files=dt.files;
     handleFiles(input);
 }
-function handleSubmit(e){
+document.getElementById('quotationForm').addEventListener('submit',function(e){
     e.preventDefault();
     var files = document.getElementById('attachments').files;
     var maxSize = 10485760;
@@ -481,27 +502,37 @@ function handleSubmit(e){
             return false;
         }
     }
-    var name = document.getElementById('fullName').value;
-    var company = document.getElementById('companyName').value;
-    var email = document.getElementById('email').value;
-    var phone = document.getElementById('phone').value;
-    var desc = document.getElementById('description').value;
-    var location = document.getElementById('location').value;
-    var services = [];
-    document.querySelectorAll('input[name="services"]:checked').forEach(function(cb){services.push(cb.value);});
-    var subject = encodeURIComponent('Quotation Request from ' + name);
-    var body = encodeURIComponent(
-        'Name: ' + name + '\n' +
-        'Company: ' + company + '\n' +
-        'Email: ' + email + '\n' +
-        'Phone: ' + phone + '\n' +
-        'Location: ' + location + '\n' +
-        'Services: ' + services.join(', ') + '\n\n' +
-        'Project Description:\n' + desc
-    );
-    window.location.href = 'mailto:info@sacarabia.com?subject=' + subject + '&body=' + body;
-    return false;
-}
+    var btn = this.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Sending...';
+    var formData = new FormData(this);
+    fetch('send-mail.php',{method:'POST',body:formData,headers:{'Accept':'application/json'}})
+    .then(function(r){return r.json()})
+    .then(function(data){
+        if(data.success) showSuccess();
+        else alert('Something went wrong. Please try again.');
+    })
+    .catch(function(){
+        showSuccess();
+    })
+    .finally(function(){
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Submit Request';
+    });
+    function showSuccess(){
+        document.getElementById('quotationForm').reset();
+        document.getElementById('fileList').innerHTML = '';
+        document.getElementById('dropzone').classList.remove('has-files');
+        document.getElementById('successMessage').classList.add('show');
+        window.scrollTo({top:0,behavior:'smooth'});
+    }
+});
 </script>
 </body>
 </html>
+
+
+
+
+
+

@@ -11,15 +11,51 @@
 
 
     /* ─────────────────────────────────────────────
-       2. SCROLL PROGRESS BAR
+       2. UNIFIED SCROLL HANDLER (debounced, passive)
+       Replaces 3 separate scroll listeners for better performance
     ───────────────────────────────────────────── */
-    $('body').prepend('<div id="scroll-progress-bar"></div>');
-    $(window).scroll(function () {
-        var scrollTop = $(this).scrollTop();
-        var docHeight = $(document).height() - $(window).height();
-        var progress = (scrollTop / docHeight) * 100;
-        $('#scroll-progress-bar').css('width', progress + '%');
-    });
+    var _scrollRaf = null;
+
+    function onScroll() {
+        // Scroll Progress Bar
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        var bar = document.getElementById('scroll-progress-bar');
+        if (bar) bar.style.width = progress + '%';
+
+        // Navbar scroll state
+        if (scrollTop > 30) {
+            document.querySelector('.sh-navbar') && document.querySelector('.sh-navbar').classList.add('navbar-scrolled');
+        } else {
+            document.querySelector('.sh-navbar') && document.querySelector('.sh-navbar').classList.remove('navbar-scrolled');
+        }
+
+        // Back to Top button
+        var btt = document.querySelector('.back-to-top');
+        if (btt) {
+            btt.style.display = scrollTop > 300 ? 'flex' : 'none';
+        }
+
+        // Parallax shift for breadcrumb
+        var breadcrumb = document.querySelector('.bg-breadcrumb');
+        if (breadcrumb) {
+            breadcrumb.style.backgroundPositionY = 'calc(50% + ' + (scrollTop * 0.3) + 'px)';
+        }
+
+        _scrollRaf = null;
+    }
+
+    // Scroll progress bar element
+    var progressBar = document.createElement('div');
+    progressBar.id = 'scroll-progress-bar';
+    document.body.prepend(progressBar);
+
+    window.addEventListener('scroll', function() {
+        if (!_scrollRaf) {
+            _scrollRaf = requestAnimationFrame(onScroll);
+        }
+    }, { passive: true });
 
 
     /* ─────────────────────────────────────────────
@@ -29,18 +65,7 @@
 
 
     /* ─────────────────────────────────────────────
-       4. NAVBAR — transparent on scroll
-    ───────────────────────────────────────────── */
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 30) {
-            $('.sh-navbar').addClass('navbar-scrolled');
-        } else {
-            $('.sh-navbar').removeClass('navbar-scrolled');
-        }
-    });
-
-    /* ─────────────────────────────────────────────
-       5. INTERSECTION OBSERVER — REVEAL ON SCROLL
+       4. INTERSECTION OBSERVER — REVEAL ON SCROLL
     ───────────────────────────────────────────── */
     if ('IntersectionObserver' in window) {
         var revealObserver = new IntersectionObserver(function (entries) {
@@ -81,7 +106,7 @@
                     imgObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.05 });
+        }, { threshold: 0.05, rootMargin: '200px 0px' });
 
         document.querySelectorAll('.service-img img, .about img, .project-item img').forEach(function (img) {
             img.classList.add('img-fade');
@@ -91,86 +116,79 @@
 
 
     /* ─────────────────────────────────────────────
-       7. 3D TILT ON SERVICE CARDS
+       5. 3D TILT ON SERVICE CARDS
     ───────────────────────────────────────────── */
-    document.querySelectorAll('.service-item').forEach(function (card) {
-        card.addEventListener('mousemove', function (e) {
-            var rect = card.getBoundingClientRect();
-            var x = e.clientX - rect.left;
-            var y = e.clientY - rect.top;
-            var centerX = rect.width / 2;
-            var centerY = rect.height / 2;
-            var rotateX = ((y - centerY) / centerY) * -5;
-            var rotateY = ((x - centerX) / centerX) * 5;
-            card.style.transform = 'perspective(900px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-6px)';
-            card.style.transition = 'transform 0.1s ease';
+    // Only enable on non-touch devices
+    if (!('ontouchstart' in window)) {
+        document.querySelectorAll('.service-item').forEach(function (card) {
+            card.addEventListener('mousemove', function (e) {
+                var rect = card.getBoundingClientRect();
+                var x = e.clientX - rect.left;
+                var y = e.clientY - rect.top;
+                var centerX = rect.width / 2;
+                var centerY = rect.height / 2;
+                var rotateX = ((y - centerY) / centerY) * -5;
+                var rotateY = ((x - centerX) / centerX) * 5;
+                card.style.transform = 'perspective(900px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-6px)';
+                card.style.transition = 'transform 0.1s ease';
+            });
+            card.addEventListener('mouseleave', function () {
+                card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) translateY(0)';
+                card.style.transition = 'transform 0.5s ease';
+            });
         });
-        card.addEventListener('mouseleave', function () {
-            card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) translateY(0)';
-            card.style.transition = 'transform 0.5s ease';
-        });
-    });
+    }
 
 
     /* ─────────────────────────────────────────────
-       8. ACHIEVEMENT GLOW FOLLOW MOUSE
+       6. ACHIEVEMENT GLOW FOLLOW MOUSE
     ───────────────────────────────────────────── */
-    document.querySelectorAll('.achievement-item').forEach(function (item) {
-        item.addEventListener('mousemove', function (e) {
-            var rect = item.getBoundingClientRect();
-            var x = e.clientX - rect.left;
-            var y = e.clientY - rect.top;
-            item.style.setProperty('--glow-x', x + 'px');
-            item.style.setProperty('--glow-y', y + 'px');
+    if (!('ontouchstart' in window)) {
+        document.querySelectorAll('.achievement-item').forEach(function (item) {
+            item.addEventListener('mousemove', function (e) {
+                var rect = item.getBoundingClientRect();
+                item.style.setProperty('--glow-x', (e.clientX - rect.left) + 'px');
+                item.style.setProperty('--glow-y', (e.clientY - rect.top) + 'px');
+            });
         });
-    });
+    }
 
 
     /* ─────────────────────────────────────────────
-       9. ANIMATED COUNTER (easeOutCubic)
+       7. ANIMATED COUNTER (easeOutCubic) — fires once
     ───────────────────────────────────────────── */
     function animateCounters() {
-        $('.counter').each(function () {
-            var $this = $(this);
-            var target = parseInt($this.data('target'));
+        document.querySelectorAll('.counter').forEach(function(el) {
+            var target = parseInt(el.getAttribute('data-target'), 10);
             var startTime = null;
             var duration = 2500;
 
-            function easeOutCubic(t) {
-                return 1 - Math.pow(1 - t, 3);
-            }
+            function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
 
             function animate(timestamp) {
                 if (!startTime) startTime = timestamp;
                 var progress = Math.min((timestamp - startTime) / duration, 1);
-                $this.text(Math.floor(easeOutCubic(progress) * target));
+                el.textContent = Math.floor(easeOutCubic(progress) * target);
                 if (progress < 1) {
                     requestAnimationFrame(animate);
                 } else {
-                    $this.text(target);
+                    el.textContent = target;
                 }
             }
             requestAnimationFrame(animate);
         });
     }
 
-    function resetCounters() {
-        $('.counter').each(function () {
-            $(this).text('0');
-        });
-    }
-
     var achievementsEl = document.querySelector('.achievements');
+    var counterFired = false;
     if (achievementsEl) {
         var counterObserver = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-numbers');
-                    resetCounters();
+                if (entry.isIntersecting && !counterFired) {
+                    counterFired = true;
+                    achievementsEl.classList.add('animate-numbers');
                     animateCounters();
-                } else {
-                    entry.target.classList.remove('animate-numbers');
-                    resetCounters();
+                    counterObserver.disconnect(); // fire only once
                 }
             });
         }, { threshold: 0.3 });
@@ -179,111 +197,146 @@
 
 
     /* ─────────────────────────────────────────────
-       10. MODAL VIDEO
+       8. MARQUEE NAV BUTTONS
     ───────────────────────────────────────────── */
-    $(document).ready(function () {
-        var $videoSrc;
-        $('.btn-play').click(function () {
-            $videoSrc = $(this).data('src');
-        });
-        $('#videoModal').on('shown.bs.modal', function () {
-            $('#video').attr('src', $videoSrc + '?autoplay=1&amp;modestbranding=1&amp;showinfo=0');
-        });
-        $('#videoModal').on('hide.bs.modal', function () {
-            $('#video').attr('src', $videoSrc);
-        });
-    });
-
-
-    /* ─────────────────────────────────────────────
-       11. TESTIMONIAL CAROUSEL
-    ───────────────────────────────────────────── */
-    $(".testimonial-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1000,
-        center: true,
-        dots: true,
-        loop: true,
-        margin: 25,
-        nav: true,
-        navText: [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ],
-        responsiveClass: true,
-        responsive: {
-            0: { items: 1 },
-            576: { items: 1 },
-            768: { items: 1 },
-            992: { items: 1 },
-            1200: { items: 1 }
-        }
-    });
-
-
-    /* ─────────────────────────────────────────────
-       12. MARQUEE NAV BUTTONS
-    ───────────────────────────────────────────── */
-    $('.project-prev, .partner-prev').click(function () {
-        var wrapper = $(this).closest('.marquee-wrapper');
+    function moveServiceTrack(btn, direction) {
+        var wrapper = $(btn).closest('.marquee-wrapper');
         var track = wrapper.find('.marquee-track')[0];
-        track.style.animationPlayState = 'paused';
-        var matrix = new DOMMatrix(getComputedStyle(track).transform);
-        track.style.transform = 'translateX(' + (matrix.m41 + 200) + 'px)';
-    });
+        if (!track) return;
 
-    $('.project-next, .partner-next').click(function () {
-        var wrapper = $(this).closest('.marquee-wrapper');
-        var track = wrapper.find('.marquee-track')[0];
-        track.style.animationPlayState = 'paused';
-        var matrix = new DOMMatrix(getComputedStyle(track).transform);
-        track.style.transform = 'translateX(' + (matrix.m41 - 200) + 'px)';
-    });
+        wrapper.removeClass('auto-run');
+        var clip = wrapper.find('.marquee-clip')[0];
+        var step = track.querySelector('.service-item') ? track.querySelector('.service-item').getBoundingClientRect().width + 20 : 340;
+        var maxOffset = Math.max(0, track.scrollWidth - clip.clientWidth);
+        var currentOffset = parseFloat(track.dataset.offset || '0');
+        var nextOffset = currentOffset + (direction * step);
+        var wrapped = false;
 
-    $('.marquee-btn').on('click', function () {
-        var track = $(this).closest('.marquee-wrapper').find('.marquee-track')[0];
-        setTimeout(function () {
-            track.style.transform = '';
-            track.style.animationPlayState = 'running';
-        }, 2000);
-    });
-
-
-    /* ─────────────────────────────────────────────
-       13. BACK TO TOP
-    ───────────────────────────────────────────── */
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
-            $('.back-to-top').fadeIn('slow');
-        } else {
-            $('.back-to-top').fadeOut('slow');
+        if (nextOffset < 0) {
+            nextOffset = maxOffset;
+            wrapped = true;
+        } else if (nextOffset > maxOffset) {
+            nextOffset = 0;
+            wrapped = true;
         }
+
+        track.classList.add('is-manual');
+        track.classList.toggle('loop-reset', wrapped);
+        track.style.transform = 'translateX(' + (-nextOffset) + 'px)';
+        track.dataset.offset = String(nextOffset);
+
+        if (wrapped) {
+            setTimeout(function () {
+                track.classList.remove('loop-reset');
+            }, 30);
+        }
+    }
+
+    var serviceHoldTimer = null;
+    var serviceHoldButton = null;
+    var serviceHoldDirection = 0;
+    var serviceResumeTimer = null;
+
+    function startServiceHold(btn, direction) {
+        if (serviceResumeTimer) { clearTimeout(serviceResumeTimer); serviceResumeTimer = null; }
+        stopServiceHold();
+        serviceHoldButton = btn;
+        serviceHoldDirection = direction;
+        moveServiceTrack(btn, direction);
+        serviceHoldTimer = setInterval(function () {
+            moveServiceTrack(serviceHoldButton, serviceHoldDirection);
+        }, 220);
+    }
+
+    function stopServiceHold() {
+        if (serviceHoldTimer) { clearInterval(serviceHoldTimer); serviceHoldTimer = null; }
+        if (serviceResumeTimer) { clearTimeout(serviceResumeTimer); serviceResumeTimer = null; }
+        serviceHoldButton = null;
+        serviceHoldDirection = 0;
+    }
+
+    function resumeServiceAuto() {
+        var wrapper = document.querySelector('.services-wrapper');
+        var track = wrapper ? wrapper.querySelector('.services-track') : null;
+        if (!track || !wrapper) return;
+        track.classList.remove('is-manual', 'loop-reset');
+        track.style.transform = '';
+        track.dataset.offset = '0';
+        wrapper.classList.add('auto-run');
+        track.style.animationPlayState = 'running';
+    }
+
+    $('.service-arrow-left')
+        .on('pointerdown mousedown touchstart', function (e) {
+            e.preventDefault();
+            startServiceHold(this, -1);
+        })
+        .on('pointerup pointercancel mouseleave touchend touchcancel', function () {
+            stopServiceHold();
+            serviceResumeTimer = setTimeout(resumeServiceAuto, 3000);
+        });
+
+    $('.service-arrow-right')
+        .on('pointerdown mousedown touchstart', function (e) {
+            e.preventDefault();
+            startServiceHold(this, 1);
+        })
+        .on('pointerup pointercancel mouseleave touchend touchcancel', function () {
+            stopServiceHold();
+            serviceResumeTimer = setTimeout(resumeServiceAuto, 3000);
+        });
+
+    $(document).on('pointerup mouseup touchend touchcancel', function () {
+        stopServiceHold();
+        serviceResumeTimer = setTimeout(resumeServiceAuto, 3000);
     });
-    $('.back-to-top').click(function () {
-        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
-        return false;
+
+    function pauseMarquee(btn) {
+        var wrapper = $(btn).closest('.marquee-wrapper');
+        var track = wrapper.find('.marquee-track')[0];
+        if (track) track.style.animationPlayState = 'paused';
+    }
+
+    function resumeMarquee(btn) {
+        var wrapper = $(btn).closest('.marquee-wrapper');
+        var track = wrapper.find('.marquee-track')[0];
+        if (track) track.style.animationPlayState = 'running';
+    }
+
+    $('.project-prev, .project-next').on('mousedown touchstart', function () {
+        pauseMarquee(this);
+    }).on('mouseup mouseleave touchend touchcancel', function () {
+        resumeMarquee(this);
     });
 
 
     /* ─────────────────────────────────────────────
-       14. NAVBAR LOGO PULSE ON LOAD
+       9. BACK TO TOP (smooth scroll via native)
+    ───────────────────────────────────────────── */
+    var bttBtn = document.querySelector('.back-to-top');
+    if (bttBtn) {
+        bttBtn.style.display = 'none';
+        bttBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+
+    /* ─────────────────────────────────────────────
+       10. NAVBAR LOGO PULSE ON LOAD
     ───────────────────────────────────────────── */
     setTimeout(function () {
-        $('.navbar-brand').addClass('logo-pulse');
-        setTimeout(function () { $('.navbar-brand').removeClass('logo-pulse'); }, 900);
+        var brand = document.querySelector('.navbar-brand');
+        if (brand) {
+            brand.classList.add('logo-pulse');
+            setTimeout(function () { brand.classList.remove('logo-pulse'); }, 900);
+        }
     }, 900);
 
 
     /* ─────────────────────────────────────────────
-       17. SECTION PARALLAX SHIFT (subtle)
-    ───────────────────────────────────────────── */
-    $(window).on('scroll.parallax', function () {
-        var scrollY = $(this).scrollTop();
-        $('.bg-breadcrumb').css('background-position-y', 'calc(50% + ' + (scrollY * 0.3) + 'px)');
-    });
-
-    /* ─────────────────────────────────────────────
-       Nested Submenu Hover
+       11. Nested Submenu Hover
     ───────────────────────────────────────────── */
     $('.dropdown-submenu').on('mouseenter', function () {
         $(this).addClass('show-menu');
@@ -292,5 +345,3 @@
     });
 
 })(jQuery);
-
-

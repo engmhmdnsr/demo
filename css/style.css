@@ -96,6 +96,14 @@ main {
     height: 32px;
 }
 
+.x-logo {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    display: inline-block;
+    vertical-align: -0.125em;
+}
+
 .btn-sm-square {
     width: 34px;
     height: 34px;
@@ -468,18 +476,11 @@ main {
     }
 
     .navbar-collapse {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(12px);
-        padding: 15px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        border-radius: 0 0 12px 12px;
-        max-height: calc(100vh - 82px);
-        overflow-y: auto;
-        z-index: 9999;
+        display: none !important;
+    }
+
+    .offcanvas-footer {
+        display: none !important;
     }
 }
 
@@ -523,12 +524,15 @@ main {
 }
 
 .navbar .dropdown-toggle::after {
-    border: none;
-    content: "\f107";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 600;
+    content: "";
+    display: inline-block;
     vertical-align: middle;
     margin-left: 8px;
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid currentColor;
 }
 
 @media (min-width: 1200px) {
@@ -616,11 +620,12 @@ main {
     }
 
     .sh-navbar .navbar-brand img {
-    max-height: 65px !important;
-    width: auto !important;
-    object-fit: contain;
-    transition: all 0.3s ease;
-}
+        max-height: 65px !important;
+        max-width: 60vw !important;
+        width: auto !important;
+        object-fit: contain;
+        transition: all 0.3s ease;
+    }
 
     .sh-navbar .navbar-scrolled .navbar-brand img {
         max-height: 50px !important;
@@ -1457,12 +1462,12 @@ main {
     align-items: stretch;
 }
 
-.services-track.is-manual {
+.marquee-track.is-manual {
     animation: none !important;
     transition: transform 0.45s ease;
 }
 
-.services-track.loop-reset {
+.marquee-track.loop-reset {
     transition: none !important;
 }
 

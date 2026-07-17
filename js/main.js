@@ -197,116 +197,212 @@
 
 
     /* ─────────────────────────────────────────────
-       8. MARQUEE NAV BUTTONS
-    ───────────────────────────────────────────── */
-    function moveServiceTrack(btn, direction) {
-        var wrapper = $(btn).closest('.marquee-wrapper');
-        var track = wrapper.find('.marquee-track')[0];
-        if (!track) return;
+        8. SERVICES MARQUEE — rAF-driven, seamless loop
+     ───────────────────────────────────────────── */
 
-        wrapper.removeClass('auto-run');
-        var clip = wrapper.find('.marquee-clip')[0];
-        var step = track.querySelector('.service-item') ? track.querySelector('.service-item').getBoundingClientRect().width + 20 : 340;
-        var maxOffset = Math.max(0, track.scrollWidth - clip.clientWidth);
-        var currentOffset = parseFloat(track.dataset.offset || '0');
-        var nextOffset = currentOffset + (direction * step);
-        var wrapped = false;
+    /**
+     * Initialise a JS-driven infinite marquee on .services-track elements.
+     * Replaces the old CSS-animation approach so we can:
+     *   • Pause/resume from exact pixel position on hover
+     *   • Nudge left/right smoothly with arrows without ever resetting to zero
+     *   • Loop seamlessly (track contains duplicated items, so at half-width we snap back silently)
+     */
+    function initServicesMarquee(wrapper) {
+        var clip  = wrapper.querySelector('.marquee-clip');
+        var track = wrapper.querySelector('.services-track');
+        if (!clip || !track) return;
 
-        if (nextOffset < 0) {
-            nextOffset = maxOffset;
-            wrapped = true;
-        } else if (nextOffset > maxOffset) {
-            nextOffset = 0;
-            wrapped = true;
+        // Force disable CSS animation so JS can control transform
+        track.style.setProperty('animation', 'none', 'important');
+
+        // Speed in px/s
+        var BASE_SPEED = 80;
+
+        // State
+        var offset   = 0;      // current translateX offset (positive = scrolled left)
+        var isHovered= false;
+        var manualDir= 0;      // -1 for left arrow, 1 for right arrow, 0 for none
+        var lastTime = null;
+        var halfW    = 0;      
+        var rafId    = null;
+
+        // Touch Drag State
+        var isDragging = false;
+        var dragLastX  = 0;
+
+        function getHalfW() {
+            // Items are duplicated, so half the scrollWidth = one full set
+            return track.scrollWidth / 2;
         }
 
-        track.classList.add('is-manual');
-        track.classList.toggle('loop-reset', wrapped);
-        track.style.transform = 'translateX(' + (-nextOffset) + 'px)';
-        track.dataset.offset = String(nextOffset);
-
-        if (wrapped) {
-            setTimeout(function () {
-                track.classList.remove('loop-reset');
-            }, 30);
+        function applyOffset() {
+            track.style.transform = 'translateX(' + (-offset) + 'px)';
         }
-    }
 
-    var serviceHoldTimer = null;
-    var serviceHoldButton = null;
-    var serviceHoldDirection = 0;
-    var serviceResumeTimer = null;
+        function tick(ts) {
+            rafId = requestAnimationFrame(tick);
+            if (lastTime === null) { lastTime = ts; }
+            var dt = (ts - lastTime) / 1000;  // seconds
+            lastTime = ts;
 
-    function startServiceHold(btn, direction) {
-        if (serviceResumeTimer) { clearTimeout(serviceResumeTimer); serviceResumeTimer = null; }
-        stopServiceHold();
-        serviceHoldButton = btn;
-        serviceHoldDirection = direction;
-        moveServiceTrack(btn, direction);
-        serviceHoldTimer = setInterval(function () {
-            moveServiceTrack(serviceHoldButton, serviceHoldDirection);
-        }, 220);
-    }
+            var currentSpeed = 0;
+            
+            if (manualDir !== 0) {
+                // If arrow is held, move fast (e.g. 800 px/sec)
+                currentSpeed = manualDir * 800;
+            } else if (!isHovered) {
+                // Normal auto-play
+                currentSpeed = BASE_SPEED;
+            }
 
-    function stopServiceHold() {
-        if (serviceHoldTimer) { clearInterval(serviceHoldTimer); serviceHoldTimer = null; }
-        if (serviceResumeTimer) { clearTimeout(serviceResumeTimer); serviceResumeTimer = null; }
-        serviceHoldButton = null;
-        serviceHoldDirection = 0;
-    }
+            if (currentSpeed !== 0) {
+                halfW = getHalfW();
+                offset += currentSpeed * dt;
 
-    function resumeServiceAuto() {
-        var wrapper = document.querySelector('.services-wrapper');
-        var track = wrapper ? wrapper.querySelector('.services-track') : null;
-        if (!track || !wrapper) return;
-        track.classList.remove('is-manual', 'loop-reset');
-        track.style.transform = '';
-        track.dataset.offset = '0';
-        wrapper.classList.add('auto-run');
-        track.style.animationPlayState = 'running';
-    }
+                // Seamless loop logic: when we've scrolled one full set, snap back silently
+                if (halfW > 0) {
+                    if (offset >= halfW) {
+                        offset -= halfW;
+                    } else if (offset < 0) {
+                        offset += halfW;
+                    }
+                }
 
-    $('.service-arrow-left')
-        .on('pointerdown mousedown touchstart', function (e) {
-            e.preventDefault();
-            startServiceHold(this, -1);
-        })
-        .on('pointerup pointercancel mouseleave touchend touchcancel', function () {
-            stopServiceHold();
-            serviceResumeTimer = setTimeout(resumeServiceAuto, 3000);
+                applyOffset();
+            }
+        }
+
+        // Start
+        rafId = requestAnimationFrame(tick);
+
+        // ── Hover pause ──
+        wrapper.addEventListener('mouseenter', function () {
+            isHovered = true;
+        });
+        wrapper.addEventListener('mouseleave', function () {
+            isHovered = false;
+            manualDir = 0; // Release manual scroll if mouse leaves wrapper entirely
         });
 
-    $('.service-arrow-right')
-        .on('pointerdown mousedown touchstart', function (e) {
-            e.preventDefault();
-            startServiceHold(this, 1);
-        })
-        .on('pointerup pointercancel mouseleave touchend touchcancel', function () {
-            stopServiceHold();
-            serviceResumeTimer = setTimeout(resumeServiceAuto, 3000);
+        // ── Touch Drag ──
+        track.addEventListener('touchstart', function(e) {
+            isDragging = true;
+            isHovered = true; // Pause auto-play
+            dragLastX = e.touches[0].clientX;
+        }, {passive: true});
+
+        track.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            var currentX = e.touches[0].clientX;
+            var diff = currentX - dragLastX;
+            dragLastX = currentX;
+
+            // diff > 0 means finger moved right -> track should move right -> offset decreases
+            offset -= diff;
+
+            halfW = getHalfW();
+            if (halfW > 0) {
+                if (offset >= halfW) offset -= halfW;
+                else if (offset < 0) offset += halfW;
+            }
+            applyOffset();
+        }, {passive: true});
+
+        track.addEventListener('touchend', function() {
+            isDragging = false;
+            isHovered = false; // Resume auto-play
+        });
+        track.addEventListener('touchcancel', function() {
+            isDragging = false;
+            isHovered = false;
         });
 
-    $(document).on('pointerup mouseup touchend touchcancel', function () {
-        stopServiceHold();
-        serviceResumeTimer = setTimeout(resumeServiceAuto, 3000);
+        // ── Expose manual direction control ──
+        wrapper._setManualDir = function(dir) {
+            manualDir = dir;
+        };
+    }
+
+    // Boot all services wrappers
+    document.querySelectorAll('.services-wrapper').forEach(function (wrapper) {
+        initServicesMarquee(wrapper);
     });
 
-    function pauseMarquee(btn) {
+    // ── Service arrow buttons ──
+    document.querySelectorAll('.service-arrow-left').forEach(function (btn) {
+        var wrapper = btn.closest('.marquee-wrapper');
+        
+        function start() { if (wrapper && wrapper._setManualDir) wrapper._setManualDir(-1); }
+        function stop()  { if (wrapper && wrapper._setManualDir) wrapper._setManualDir(0); }
+
+        btn.addEventListener('pointerdown', function (e) { e.preventDefault(); start(); });
+        btn.addEventListener('pointerup',     stop);
+        btn.addEventListener('pointercancel', stop);
+        btn.addEventListener('mouseleave',    stop);
+    });
+
+    document.querySelectorAll('.service-arrow-right').forEach(function (btn) {
+        var wrapper = btn.closest('.marquee-wrapper');
+        
+        function start() { if (wrapper && wrapper._setManualDir) wrapper._setManualDir(1); }
+        function stop()  { if (wrapper && wrapper._setManualDir) wrapper._setManualDir(0); }
+
+        btn.addEventListener('pointerdown', function (e) { e.preventDefault(); start(); });
+        btn.addEventListener('pointerup',     stop);
+        btn.addEventListener('pointercancel', stop);
+        btn.addEventListener('mouseleave',    stop);
+    });
+
+    // Fallback stop
+    document.addEventListener('pointerup', function() {
+        document.querySelectorAll('.services-wrapper').forEach(function(wrapper) {
+            if (wrapper._setManualDir) wrapper._setManualDir(0);
+        });
+    });
+    document.addEventListener('touchend', function() {
+        document.querySelectorAll('.services-wrapper').forEach(function(wrapper) {
+            if (wrapper._setManualDir) wrapper._setManualDir(0);
+        });
+    });
+
+    // ── Project / Partner marquee arrows (CSS-animation based, unchanged) ──
+    function moveMarquee(btn, direction) {
         var wrapper = $(btn).closest('.marquee-wrapper');
-        var track = wrapper.find('.marquee-track')[0];
-        if (track) track.style.animationPlayState = 'paused';
+        var track   = wrapper.find('.marquee-track:not(.services-track)')[0];
+        if (!track) return;
+        var clip    = wrapper.find('.marquee-clip')[0];
+        var item    = track.querySelector('.project-item, .partner-item, .client-item');
+        var step    = item ? item.getBoundingClientRect().width + 20 : 300;
+        var maxOff  = Math.max(0, track.scrollWidth - (clip ? clip.clientWidth : 0));
+        var current = parseFloat(track.dataset.offset || '0');
+        var next    = current + direction * step;
+        var wrapped = false;
+        if (next < 0)       { next = maxOff; wrapped = true; }
+        else if (next > maxOff) { next = 0;  wrapped = true; }
+        track.classList.add('is-manual');
+        track.classList.toggle('loop-reset', wrapped);
+        track.style.transform = 'translateX(' + (-next) + 'px)';
+        track.dataset.offset  = String(next);
+        if (wrapped) { setTimeout(function () { track.classList.remove('loop-reset'); }, 30); }
+        clearTimeout(track._resume);
+        track._resume = setTimeout(function () {
+            track.classList.remove('is-manual', 'loop-reset');
+            track.style.transform = '';
+            track.dataset.offset  = '0';
+            track.style.animationPlayState = '';
+        }, 3500);
     }
 
-    function resumeMarquee(btn) {
-        var wrapper = $(btn).closest('.marquee-wrapper');
-        var track = wrapper.find('.marquee-track')[0];
-        if (track) track.style.animationPlayState = 'running';
-    }
+    $('.project-prev, .partner-prev').on('click', function (e) { e.preventDefault(); moveMarquee(this, -1); });
+    $('.project-next, .partner-next').on('click', function (e) { e.preventDefault(); moveMarquee(this,  1); });
 
-    $('.project-prev, .project-next').on('mousedown touchstart', function () {
-        pauseMarquee(this);
-    }).on('mouseup mouseleave touchend touchcancel', function () {
-        resumeMarquee(this);
+    // Hover pause for NON-services marquees (CSS-animation based)
+    $('.marquee-wrapper:not(.services-wrapper)').on('mouseenter', function () {
+        var track = $(this).find('.marquee-track')[0];
+        if (track && !track.classList.contains('is-manual')) track.style.animationPlayState = 'paused';
+    }).on('mouseleave', function () {
+        var track = $(this).find('.marquee-track')[0];
+        if (track && !track.classList.contains('is-manual')) track.style.animationPlayState = '';
     });
 
 
@@ -342,6 +438,48 @@
         $(this).addClass('show-menu');
     }).on('mouseleave', function () {
         $(this).removeClass('show-menu');
+    });
+
+    /* ─────────────────────────────────────────────
+       12. OFFCANVAS MENU SPLIT CLICK
+    ───────────────────────────────────────────── */
+    $('.sh-offcanvas-dropdown > a.sh-offcanvas-link, .sh-offcanvas-subgroup > a.sh-offcanvas-sublink').each(function() {
+        var $el = $(this);
+        
+        // Remove inline onclick handler to prevent it from firing automatically
+        $el.removeAttr('onclick');
+        $el.prop('onclick', null);
+        
+        // Ensure "About" links go to about.html instead of "#"
+        if ($el.attr('href') === '#') {
+            var txt = $el.text().trim();
+            if (txt.indexOf('About') === 0) {
+                $el.attr('href', 'about.html');
+            }
+        }
+        
+        // Wrap the text node in a span so we can detect clicks specifically on the text
+        $el.contents().filter(function() {
+            return this.nodeType === 3 && this.nodeValue.trim().length > 0;
+        }).wrap('<span class="nav-text-target" style="padding-right: 15px; cursor: pointer;"></span>');
+        
+        // Handle click
+        $el.on('click', function(e) {
+            var $target = $(e.target);
+            
+            // If the user clicked the text span, let the browser follow the link naturally
+            if ($target.closest('.nav-text-target').length > 0) {
+                return true;
+            }
+            
+            // Otherwise (they clicked the chevron or the empty space), prevent navigation and toggle
+            e.preventDefault();
+            if ($el.hasClass('sh-offcanvas-link')) {
+                $el.siblings('.sh-offcanvas-submenu').toggleClass('open');
+            } else {
+                $el.siblings('.sh-offcanvas-subsub').toggleClass('open');
+            }
+        });
     });
 
 })(jQuery);
